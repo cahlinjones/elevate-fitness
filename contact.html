@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contact Us | Elevate FitX</title>
+    <title>Contact Us | Elevate Fitness</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
@@ -29,6 +29,7 @@
         .cart-icon { position: relative; cursor: pointer; padding: 0.5rem; border-radius: 50%; transition: background 0.3s; color: var(--white); }
         .cart-icon:hover { background: rgba(255, 107, 53, 0.2); }
         .cart-icon i { color: var(--white); }
+        .cart-icon svg { color: var(--white) !important; stroke: var(--white) !important; }
         .cart-count { position: absolute; top: 0; right: 0; background: var(--primary); color: var(--white); border-radius: 50%; width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 700; }
         .page-header { background: linear-gradient(135deg, rgba(0, 78, 137, 0.95), rgba(255, 107, 53, 0.9)); color: var(--white); padding: 5rem 2rem 3rem; text-align: center; }
         .page-header h1 { font-size: 3.5rem; margin-bottom: 1rem; }
@@ -88,12 +89,13 @@
             .form-row { grid-template-columns: 1fr; }
             .form-container { padding: 2rem 1.5rem; }
         }
+        .cart-icon i, .cart-icon svg { color: var(--white) !important; stroke: currentColor; }
     </style>
 </head>
 <body>
     <nav>
         <div class="nav-container">
-            <a href="index.html" class="logo">ELEVATE<span>FitX</span></a>
+            <a href="index.html" class="logo">ELEVATE<span>Fitness</span></a>
             <ul class="nav-links">
                 <li><a href="index.html">Home</a></li>
                 <li><a href="amenities.html">Amenities</a></li>
@@ -150,7 +152,7 @@
                     </div>
                     <h3>Email</h3>
                     <p>
-                        <a href="mailto:info@elevatefitx.com">info@elevatefitx.com</a><br><br>
+                        <a href="/cdn-cgi/l/email-protection#2e474048416e4b424b584f5a4b48475a56004d4143"><span class="__cf_email__" data-cfemail="c4adaaa2ab84a1a8a1b2a5b0a1a2adb0bceaa7aba9">[email&#160;protected]</span></a><br><br>
                         Send us an email anytime<br>and we'll get back to you!
                     </p>
                 </div>
@@ -253,20 +255,20 @@
     <section class="cta-section">
         <div class="container">
             <h2>Ready to Get Started?</h2>
-            <p>Join Elevate FitX today and transform your life!</p>
+            <p>Join Elevate Fitness today and transform your life!</p>
             <a href="memberships.html" class="btn">View Membership Options</a>
         </div>
     </section>
 
     <footer>
         <div class="footer-content">
-            <div class="footer-logo">ELEVATE<span>FitX</span></div>
+            <div class="footer-logo">ELEVATE<span>Fitness</span></div>
             <p>Transform your life at Pocatello's premier fitness center</p>
-            <p class="footer-text">&copy; 2025 Elevate FitX. All rights reserved.</p>
+            <p class="footer-text">&copy; 2025 Elevate Fitness. All rights reserved.</p>
         </div>
     </footer>
 
-    <script>
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
         document.addEventListener('DOMContentLoaded', function() {
             if (typeof lucide !== 'undefined') {
                 lucide.createIcons();
@@ -322,13 +324,4 @@
                     formMessage.textContent = 'Sorry, there was an error sending your message. Please call us at (208) 233-8035.';
                     formMessage.className = 'form-message error';
                     formMessage.style.display = 'block';
-                } finally {
-                    // Re-enable submit button
-                    submitBtn.disabled = false;
-                    submitBtn.textContent = 'Send Message';
-                }
-            });
-        });
-    </script>
-</body>
-</html>
+              

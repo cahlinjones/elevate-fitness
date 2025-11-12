@@ -198,7 +198,7 @@
             color: var(--primary);
         }
 
-        .cart-icon {
+        .cart-icon { color: var(--white) !important;
             position: relative;
             cursor: pointer;
             padding: 0.5rem;
@@ -209,6 +209,7 @@
         .cart-icon:hover {
             background: rgba(255, 107, 53, 0.2);
         }
+        .cart-icon i, .cart-icon svg { color: var(--white) !important; stroke: currentColor; }
 
         .cart-count {
             position: absolute;
@@ -234,10 +235,15 @@
         /* Hero Section */
         .hero {
             height: 100vh;
-            background: linear-gradient(135deg, rgba(30, 58, 138, 0.95), rgba(220, 20, 60, 0.9)), 
-                        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600"><rect fill="%231a1a2e" width="1200" height="600"/></svg>');
+            /* Background image - Replace 'hero-background.jpg' with your image file */
+            background-image: 
+                linear-gradient(135deg, rgba(30, 58, 138, 0.85), rgba(220, 20, 60, 0.75)), 
+                url('gym.webp');
+            /* Fallback solid gradient if no image */
+            background-color: #1E3A8A;
             background-size: cover;
             background-position: center;
+            background-attachment: fixed;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -1241,7 +1247,7 @@
         <div class="container">
             <div class="section-header">
                 <h2>Meet the Owners</h2>
-                <p class="subtitle">The passionate leaders behind Elevate FitX</p>
+                <p class="subtitle">The passionate leaders behind Elevate Fitness</p>
             </div>
             <div class="owners-grid">
                 <div class="owner-card">
@@ -1263,7 +1269,7 @@
         <div class="container">
             <div class="section-header">
                 <h2>Visit Us Today</h2>
-                <p class="subtitle">Stop by for a free tour and see why Elevate FitX is Pocatello's premier fitness center</p>
+                <p class="subtitle">Stop by for a free tour and see why Elevate Fitness is Pocatello's premier fitness center</p>
             </div>
             <div class="contact-grid">
                 <div class="contact-card">
