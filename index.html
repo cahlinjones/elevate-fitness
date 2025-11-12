@@ -227,9 +227,89 @@
             font-weight: 700;
         }
 
+        /* Mobile Menu Styles */
         .mobile-menu {
             display: none;
             cursor: pointer;
+            color: var(--white);
+            font-size: 1.5rem;
+            padding: 0.5rem;
+        }
+
+        .mobile-nav-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 9998;
+        }
+
+        .mobile-nav {
+            display: none;
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 80%;
+            max-width: 350px;
+            height: 100%;
+            background: var(--dark);
+            z-index: 9999;
+            padding: 2rem;
+            transition: right 0.3s ease;
+            overflow-y: auto;
+        }
+
+        .mobile-nav.active {
+            right: 0;
+        }
+
+        .mobile-nav-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .mobile-nav-header .logo {
+            font-size: 1.5rem;
+        }
+
+        .mobile-close {
+            cursor: pointer;
+            color: var(--white);
+            font-size: 2rem;
+            line-height: 1;
+        }
+
+        .mobile-nav-links {
+            list-style: none;
+            padding: 0;
+        }
+
+        .mobile-nav-links li {
+            margin-bottom: 0;
+        }
+
+        .mobile-nav-links a {
+            display: block;
+            color: var(--white);
+            text-decoration: none;
+            padding: 1rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s;
+        }
+
+        .mobile-nav-links a:hover,
+        .mobile-nav-links a.active {
+            color: var(--primary);
+            padding-left: 1.5rem;
         }
 
         /* Hero Section */
@@ -238,7 +318,7 @@
             /* Background image - Replace 'hero-background.jpg' with your image file */
             background-image: 
                 linear-gradient(135deg, rgba(30, 58, 138, 0.85), rgba(220, 20, 60, 0.75)), 
-                url('gym.webp');
+                url('hero-background.jpg');
             /* Fallback solid gradient if no image */
             background-color: #1E3A8A;
             background-size: cover;
@@ -956,6 +1036,27 @@
             </div>
         </div>
     </nav>
+    <!-- Mobile Navigation Overlay -->
+    <div class="mobile-nav-overlay" id="mobileOverlay" onclick="closeMobileMenu()"></div>
+    
+    <!-- Mobile Navigation Menu -->
+    <div class="mobile-nav" id="mobileNav">
+        <div class="mobile-nav-header">
+            <a href="index.html" class="logo">ELEVATE<span>Fitness</span></a>
+            <div class="mobile-close" onclick="closeMobileMenu()">
+                <i data-lucide="x"></i>
+            </div>
+        </div>
+        <ul class="mobile-nav-links">
+            <li><a href="index.html" class="active">Home</a></li>
+            <li><a href="amenities.html">Amenities</a></li>
+            <li><a href="classes.html">Classes</a></li>
+            <li><a href="memberships.html">Memberships</a></li>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+    </div>
+
 
     <!-- Hero Section -->
     <section class="hero">
@@ -1428,7 +1529,35 @@
         }
 
         function toggleMobileMenu() {
-            alert('Mobile menu functionality - In a production site, this would show a mobile navigation menu.');
+            const mobileNav = document.getElementById('mobileNav');
+            const overlay = document.getElementById('mobileOverlay');
+            
+            mobileNav.style.display = 'block';
+            overlay.style.display = 'block';
+            
+            setTimeout(() => {
+                mobileNav.classList.add('active');
+            }, 10);
+            
+            document.body.style.overflow = 'hidden';
+            
+            if (typeof lucide !== 'undefined') {
+                lucide.createIcons();
+            }
+        }
+
+        function closeMobileMenu() {
+            const mobileNav = document.getElementById('mobileNav');
+            const overlay = document.getElementById('mobileOverlay');
+            
+            mobileNav.classList.remove('active');
+            
+            setTimeout(() => {
+                mobileNav.style.display = 'none';
+                overlay.style.display = 'none';
+            }, 300);
+            
+            document.body.style.overflow = 'auto';
         }
 
         // Smooth scrolling for anchor links
