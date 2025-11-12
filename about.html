@@ -83,27 +83,6 @@
             </ul>
         </div>
     </nav>
-    <!-- Mobile Navigation Overlay -->
-    <div class="mobile-nav-overlay" id="mobileOverlay" onclick="closeMobileMenu()"></div>
-    
-    <!-- Mobile Navigation Menu -->
-    <div class="mobile-nav" id="mobileNav">
-        <div class="mobile-nav-header">
-            <a href="index.html" class="logo">ELEVATE<span>Fitness</span></a>
-            <div class="mobile-close" onclick="closeMobileMenu()">
-                <i data-lucide="x"></i>
-            </div>
-        </div>
-        <ul class="mobile-nav-links">
-            <li><a href="index.html">Home</a></li>
-            <li><a href="amenities.html">Amenities</a></li>
-            <li><a href="classes.html">Classes</a></li>
-            <li><a href="memberships.html">Memberships</a></li>
-            <li><a href="about.html"class="active">About Us</a></li>
-            <li><a href="contact.html">Contact</a></li>
-        </ul>
-    </div>
-
 
     <div class="page-header">
         <h1>About Elevate Fitness</h1>
@@ -201,38 +180,6 @@
                 lucide.createIcons();
             }
         });
-    
-        function toggleMobileMenu() {
-            const mobileNav = document.getElementById('mobileNav');
-            const overlay = document.getElementById('mobileOverlay');
-            
-            mobileNav.style.display = 'block';
-            overlay.style.display = 'block';
-            
-            setTimeout(() => {
-                mobileNav.classList.add('active');
-            }, 10);
-            
-            document.body.style.overflow = 'hidden';
-            
-            if (typeof lucide !== 'undefined') {
-                lucide.createIcons();
-            }
-        }
-
-        function closeMobileMenu() {
-            const mobileNav = document.getElementById('mobileNav');
-            const overlay = document.getElementById('mobileOverlay');
-            
-            mobileNav.classList.remove('active');
-            
-            setTimeout(() => {
-                mobileNav.style.display = 'none';
-                overlay.style.display = 'none';
-            }, 300);
-            
-            document.body.style.overflow = 'auto';
-        }
-</script>
+    </script>
 </body>
 </html>
