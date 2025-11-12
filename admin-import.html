@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Data Import | Elevate Fitness Admin</title>
+    <meta name="robots" content="noindex, nofollow">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --primary: #DC143C;
+            --primary-dark: #B01030;
+            --secondary: #1E3A8A;
+            --secondary-light: #3B82F6;
+            --dark: #1a1a2e;
+            --light: #f5f5f5;
+            --white: #ffffff;
+            --gray: #6c757d;
+        }
+        body { 
+            font-family: 'Open Sans', sans-serif; 
+            background: var(--light); 
+            padding: 2rem; 
+        }
+        h1, h2, h3 { font-family: 'Montserrat', sans-serif; font-weight: 700; }
+        
+        .container { max-width: 1000px; margin: 0 auto; }
+        .card { background: var(--white); padding: 2.5rem; border-radius: 15px; box-shadow: 0 5px 20px rgba(0,0,0,0.1); margin-bottom: 2rem; }
+        .header { text-align: center; margin-bottom: 3rem; }
+        .header h1 { font-size: 2.5rem; color: var(--dark); margin-bottom: 0.5rem; }
+        .header p { color: var(--gray); }
+        
+        .section { margin-bottom: 2rem; }
+        .section h2 { font-size: 1.5rem; color: var(--dark); margin-bottom: 1rem; border-left: 4px solid var(--primary); padding-left: 1rem; }
+        
+        .form-group { margin-bottom: 1.5rem; }
+        .form-group label { display: block; font-weight: 600; margin-bottom: 0.5rem; color: var(--dark); }
+        .form-group input, .form-group textarea { 
+            width: 100%; 
+            padding: 0.8rem; 
+            border: 2px solid var(--light); 
+            border-radius: 8px; 
+            font-size: 1rem;
+            font-family: 'Courier New', monospace;
+        }
+        .form-group input:focus, .form-group textarea:focus { 
+            outline: none; 
+            border-color: var(--primary); 
+        }
+        
+        .btn { 
+            padding: 1rem 2rem; 
+            font-size: 1rem; 
+            font-weight: 700; 
+            border-radius: 50px; 
+            border: none; 
+            cursor: pointer; 
+            transition: all 0.3s;
+            font-family: 'Montserrat', sans-serif;
+        }
+        .btn-primary { background: var(--primary); color: var(--white); }
+        .btn-primary:hover { background: var(--primary-dark); transform: translateY(-2px); }
+        .btn-secondary { background: var(--secondary); color: var(--white); }
+        .btn:disabled { background: var(--gray); cursor: not-allowed; }
+        
+        .info-box { background: #e0f2fe; border-left: 4px solid var(--secondary); padding: 1.5rem; border-radius: 8px; margin-bottom: 1.5rem; }
+        .warning-box { background: #fef2f2; border-left: 4px solid var(--primary); padding: 1.5rem; border-radius: 8px; margin-bottom: 1.5rem; }
+        .success-box { background: #f0fdf4; border-left: 4px solid #10b981; padding: 1.5rem; border-radius: 8px; margin-bottom: 1.5rem; display: none; }
+        .error-box { background: #fef2f2; border-left: 4px solid #ef4444; padding: 1.5rem; border-radius: 8px; margin-bottom: 1.5rem; display: none; }
+        
+        .code-block { 
+            background: var(--dark); 
+            color: #10b981; 
+            padding: 1.5rem; 
+            border-radius: 8px; 
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+        
+        .results { margin-top: 2rem; }
+        .result-item { padding: 0.8rem; border-bottom: 1px solid var(--light); }
+        .result-success { color: #10b981; }
+        .result-failed { color: #ef4444; }
+        
+        .download-template { display: inline-flex; align-items: center; gap: 0.5rem; color: var(--secondary); text-decoration: none; font-weight: 600; }
+        .download-template:hover { text-decoration: underline; }
+        
+        textarea { min-height: 300px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🔐 Customer Data Import Tool</h1>
+            <p>Migrate customers from Wix to Stripe</p>
+        </div>
+
+        <div class="card">
+            <div class="section">
+                <h2>Step 1: Export Data from Wix</h2>
+                <div class="info-box">
+                    <p><strong>How to export from Wix:</strong></p>
+                    <ol style="margin-left: 1.5rem; margin-top: 0.5rem;">
+                        <li>Log into your Wix dashboard</li>
+                        <li>Go to <strong>Contacts</strong> → <strong>Contact List</strong></li>
+                        <li>Click <strong>Export</strong> (top right)</li>
+                        <li>Select all fields including email, name, phone, address</li>
+                        <li>Download as CSV</li>
+                    </ol>
+                    <p style="margin-top: 1rem;"><strong>For Subscriptions:</strong></p>
+                    <ol style="margin-left: 1.5rem; margin-top: 0.5rem;">
+                        <li>Go to <strong>Pricing Plans</strong> → <strong>Members</strong></li>
+                        <li>Export member list with subscription details</li>
+                    </ol>
+                    <p style="margin-top: 1rem;"><strong>For Orders:</strong></p>
+                    <ol style="margin-left: 1.5rem; margin-top: 0.5rem;">
+                        <li>Go to <strong>Orders</strong></li>
+                        <li>Export order history</li>
+                    </ol>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>Step 2: Convert to JSON Format</h2>
+                <div class="warning-box">
+                    <p><strong>⚠️ Important:</strong> Use the template below. Each customer must include email at minimum.</p>
+                </div>
+                
+                <p style="margin-bottom: 1rem;">
+                    <a href="#" class="download-template" onclick="downloadTemplate(); return false;">
+                        <i data-lucide="download"></i>
+                        Download JSON Template
+                    </a>
+                </p>
+
+                <p style="margin-bottom: 0.5rem; font-weight: 600;">JSON Format Example:</p>
+                <div class="code-block">
+[
+  {
+    "email": "<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="e2819791968d8f8790a2879a838f928e87cc818d8f">[email&#160;protected]</a>",
+    "name": "John Doe",
+    "phone": "+12082338035",
+    "wixId": "wix_customer_123",
+    "address": {
+      "line1": "123 Main St",
+      "city": "Pocatello",
+      "state": "ID",
+      "postal_code": "83201",
+      "country": "US"
+    },
+    "subscription": {
+      "isActive": true,
+      "planName": "Individual Membership",
+      "startDate": "2024-01-15",
+      "nextRenewalDate": "2025-12-15"
+    },
+    "orderHistory": [
+      {
+        "date": "2024-01-15",
+        "amount": "49.00",
+        "item": "Individual Membership"
+      },
+      {
+        "date": "2024-06-10",
+        "amount": "499.00",
+        "item": "Personal Training Package"
+      }
+    ]
+  },
+  {
+    "email": "<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="96f7f8f9e2fef3e4d6f3eef7fbe6faf3b8f5f9fb">[email&#160;protected]</a>",
+    "name": "Jane Smith",
+    "phone": "+12085551234",
+    "subscription": {
+      "isActive": true,
+      "planName": "Family Membership",
+      "nextRenewalDate": "2025-11-20"
+    }
+  }
+]
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>Step 3: Paste JSON Data & Import</h2>
+                <form id="importForm">
+                    <div class="form-group">
+                        <label for="adminPassword">Admin Password *</label>
+                        <input type="password" id="adminPassword" required placeholder="Enter admin import password">
+                        <small style="color: var(--gray);">This is the ADMIN_IMPORT_KEY you set in Netlify environment variables</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="jsonData">Customer Data (JSON) *</label>
+                        <textarea id="jsonData" required placeholder="Paste your JSON data here..."></textarea>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary" id="importBtn">
+                        Import Customers to Stripe
+                    </button>
+                </form>
+            </div>
+
+            <div class="success-box" id="successBox"></div>
+            <div class="error-box" id="errorBox"></div>
+
+            <div class="results" id="results" style="display: none;">
+                <h2>Import Results</h2>
+                <div id="resultsContent"></div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>📋 Important Notes</h2>
+            <ul style="margin-left: 1.5rem; line-height: 2;">
+                <li><strong>Passwords:</strong> Not transferred. Customers log in with email only</li>
+                <li><strong>Payment Methods:</strong> Not transferred for security. Customers must re-enter cards</li>
+                <li><strong>Subscriptions:</strong> Will be created in Stripe with preserved renewal dates</li>
+                <li><strong>Order History:</strong> Stored as metadata for reference (first 5 orders)</li>
+                <li><strong>Testing:</strong> Test with 1-2 customers first before full import</li>
+                <li><strong>Duplicates:</strong> Existing emails will be skipped (won't create duplicates)</li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <h2>🔒 Security</h2>
+            <p style="margin-bottom: 1rem;">This page should be:</p>
+            <ul style="margin-left: 1.5rem; line-height: 2;">
+                <li>Only accessible to admins</li>
+                <li>Removed after import is complete</li>
+                <li>Password-protected (ADMIN_IMPORT_KEY)</li>
+                <li>Never shared publicly</li>
+            </ul>
+        </div>
+    </div>
+
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+        document.addEventListener('DOMContentLoaded', function() {
+            if (typeof lucide !== 'undefined') {
+                lucide.createIcons();
+            }
+        });
+
+        function downloadTemplate() {
+            const template = [
+                {
+                    email: "customer@example.com",
+                    name: "Customer Name",
+                    phone: "+12082338035",
+                    wixId: "wix_id_optional",
+                    address: {
+                        line1: "Street Address",
+                        city: "Pocatello",
+                        state: "ID",
+                        postal_code: "83201",
+                        country: "US"
+                    },
+                    subscription: {
+                        isActive: true,
+                        planName: "Individual Membership",
+                        startDate: "2024-01-01",
+                        nextRenewalDate: "2025-12-01"
+                    },
+                    orderHistory: [
+                        {
+                            date: "2024-01-01",
+                            amount: "49.00",
+                            item: "Individual Membership"
+                        }
+                    ]
+                }
+            ];
+
+            const blob = new Blob([JSON.stringify(template, null, 2)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'customer-import-template.json';
+            a.click();
+        }
+
+        document.getElementById('importForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+
+            const adminPassword = document.getElementById('adminPassword').value;
+            const jsonData = document.getElementById('jsonData').value;
+            const importBtn = document.getElementById('importBtn');
+            const successBox = document.getElementById('successBox');
+            const errorBox = document.getElementById('errorBox');
+            const results = document.getElementById('results');
+            const resultsContent = document.getElementById('resultsContent');
+
+            // Hide previous messages
+            successBox.style.display = 'none';
+            errorBox.style.display = 'none';
+            results.style.display = 'none';
+
+            // Validate JSON
+            let customers;
+            try {
+                customers = JSON.parse(jsonData);
+                if (!Array.isArray(customers)) {
+                    throw new Error('Data must be an array of customers');
+                }
+            } catch (err) {
+                errorBox.innerHTML = `<strong>Invalid JSON:</strong> ${err.message}`;
+                errorBox.style.display = 'block';
+                return;
+            }
+
+            // Show loading
+            importBtn.disabled = true;
+            importBtn.textContent = `Importing ${customers.length} customers...`;
+
+            try {
+                const response = await fetch('/api/import-customers', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        customers,
+                        adminPassword
+                    })
+                });
+
+                const data = await response.json();
+
+                if (!response.ok) {
+                    throw new Error(data.message || 'Import failed');
+                }
+
+                // Show success
+                successBox.innerHTML = `
+                    <h3>✅ Import Complete!</h3>
+                    <p><strong>Total:</strong> ${data.results.total} customers processed</p>
+                    <p><strong>Successful:</strong> ${data.results.successful.length}</p>
+                    <p><strong>Failed:</strong> ${data.results.failed.length}</p>
+                `;
+                successBox.style.display = 'block';
+
+                // Show detailed results
+                resultsContent.innerHTML = `
+                    <h3>Successful Imports (${data.results.successful.length})</h3>
+                    ${data.results.successful.map(r => `
+                        <div class="result-item result-success">
+                            ✅ ${r.email} - ${r.status} (Customer ID: ${r.customerId})
+                        </div>
+                    `).join('')}
+                    
+                    ${data.results.failed.length > 0 ? `
+                        <h3 style="margin-top: 2rem;">Failed Imports (${data.results.failed.length})</h3>
+                        ${data.results.failed.map(r => `
+                            <div class="result-item result-failed">
+                                ❌ ${r.email} - ${r.error}
+                            </div>
+                        `).join('')}
+                    ` : ''}
+                `;
+                results.style.display = 'block';
+
+                // Clear form
+                document.getElementById('jsonData').value = '';
+
+            } catch (error) {
+                console.error('Imp

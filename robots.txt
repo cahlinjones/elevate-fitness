@@ -1,0 +1,12 @@
+# Robots.txt for Elevate Fitness
+# Allows search engines to index public pages
+
+User-agent: *
+Allow: /
+Disallow: /login.html
+Disallow: /dashboard.html
+Disallow: /success.html
+Disallow: /.netlify/
+
+# Sitemap location
+Sitemap: https://www.elevatefitness.com/sitemap.xml

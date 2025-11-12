@@ -1,0 +1,21 @@
+{
+  "name": "elevate-fitx-website",
+  "version": "1.0.0",
+  "description": "Elevate FitX Gym Website with Stripe Payment Integration",
+  "scripts": {
+    "dev": "netlify dev",
+    "build": "echo 'No build needed for static site'",
+    "deploy": "netlify deploy --prod"
+  },
+  "keywords": [
+    "gym",
+    "fitness",
+    "stripe",
+    "netlify"
+  ],
+  "author": "Elevate FitX",
+  "license": "MIT",
+  "devDependencies": {
+    "netlify-cli": "^17.0.0"
+  }
+}

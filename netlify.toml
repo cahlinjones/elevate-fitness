@@ -1,0 +1,55 @@
+[build]
+  command = "# no build command"
+  functions = "netlify/functions"
+  publish = "."
+
+[[redirects]]
+  from = "/api/*"
+  to = "/.netlify/functions/:splat"
+  status = 200
+
+# Security Headers
+[[headers]]
+  for = "/*"
+  [headers.values]
+    # Content Security Policy - Allows only trusted sources
+    Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-inline' https://unpkg.com https://cdn.jsdelivr.net https://js.stripe.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://api.stripe.com https://checkout.stripe.com /.netlify/functions/*; frame-src https://js.stripe.com https://hooks.stripe.com https://checkout.stripe.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self' https://checkout.stripe.com;"
+    
+    # Prevent clickjacking attacks
+    X-Frame-Options = "DENY"
+    
+    # Prevent MIME type sniffing
+    X-Content-Type-Options = "nosniff"
+    
+    # Enable XSS protection in browsers
+    X-XSS-Protection = "1; mode=block"
+    
+    # Referrer policy - don't leak URLs
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    
+    # Permissions policy - restrict features
+    Permissions-Policy = "geolocation=(), microphone=(), camera=(), payment=(self)"
+    
+    # HSTS - Force HTTPS (only add after testing!)
+    # Strict-Transport-Security = "max-age=31536000; includeSubDomains; preload"
+
+# Cache static assets
+[[headers]]
+  for = "/*.css"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/*.js"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/*.jpg"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/*.png"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
