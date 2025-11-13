@@ -75,15 +75,27 @@
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
         
         .quick-actions { display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 2rem; }
+        
+        @media (max-width: 768px) {
+            .hamburger { display: flex; }
+            .nav-right { position: fixed; left: -100%; top: 0; flex-direction: column; background-color: rgba(26, 26, 46, 0.98); width: 100%; height: 100vh; text-align: center; transition: 0.3s; padding-top: 80px; gap: 2rem; justify-content: flex-start; }
+            .nav-right.active { left: 0; }
+        }
+        .cart-icon, .cart-icon i, .cart-icon svg { color: var(--white) !important; stroke: var(--white) !important; }
     </style>
 </head>
 <body>
     <nav>
         <div class="nav-container">
             <a href="index.html" class="logo">ELEVATE<span>Fitness</span></a>
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
             <div class="nav-right">
                 <span class="user-email" id="userEmail"></span>
-                <button class="logout-btn" onclick="window.location.href='memberships.html'">Logout</button>
+                <button class="logout-btn" onclick="logout()">Logout</button>
             </div>
         </div>
     </nav>
@@ -311,7 +323,25 @@
         }
 
         // Update cart count on page load
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function() {            
+            // Hamburger menu functionality
+            const hamburger = document.getElementById('hamburger');
+            const navRight = document.querySelector('.nav-right');
+
+            if (hamburger && navRight) {
+                hamburger.addEventListener('click', () => {
+                    hamburger.classList.toggle('active');
+                    navRight.classList.toggle('active');
+                });
+
+                document.addEventListener('click', (e) => {
+                    if (!hamburger.contains(e.target) && !navRight.contains(e.target)) {
+                        hamburger.classList.remove('active');
+                        navRight.classList.remove('active');
+                    }
+                });
+            }
+            
             updateCartCount();
         });
 
