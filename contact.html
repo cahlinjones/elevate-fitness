@@ -33,7 +33,7 @@
         .nav-links { display: flex; list-style: none; gap: 2.5rem; align-items: center; }
         .nav-links a { color: var(--white); text-decoration: none; font-weight: 600; transition: color 0.3s; font-size: 0.95rem; }
         .nav-links a:hover, .nav-links a.active { color: var(--primary); }
-        .cart-icon { position: relative; cursor: pointer; padding: 0.5rem; border-radius: 50%; transition: background 0.3s; color: var(--white); }
+        .cart-icon {color: var(--white); position: relative; cursor: pointer; padding: 0.5rem; border-radius: 50%; transition: background 0.3s; color: var(--white); }
         .cart-icon:hover { background: rgba(255, 107, 53, 0.2); }
         .cart-icon i { color: var(--white); }
         .cart-icon svg { color: var(--white) !important; stroke: var(--white) !important; }
@@ -118,10 +118,11 @@
                 <li><a href="memberships.html">Memberships</a></li>
                 <li><a href="about.html">About Us</a></li>
                 <li><a href="contact.html" class="active">Contact</a></li>
+                <li><a href="login.html">Login</a></li>
                 <li>
-                    <div class="cart-icon" onclick="alert('Navigate to memberships page to add items to cart!')">
+                    <div class="cart-icon" onclick="window.location.href='memberships.html'">
                         <i data-lucide="shopping-cart"></i>
-                        <span class="cart-count">0</span>
+                        <span class="cart-count" id="cartCount">0</span>
                     </div>
                 </li>
             </ul>

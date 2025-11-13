@@ -227,7 +227,7 @@
             color: var(--primary);
         }
 
-        .cart-icon { color: var(--white) !important;
+        .cart-icon {color: var(--white); color: var(--white) !important;
             position: relative;
             cursor: pointer;
             padding: 0.5rem;
@@ -256,10 +256,7 @@
             font-weight: 700;
         }
 
-        .mobile-menu {
-            display: none;
-            cursor: pointer;
-        }
+        
 
         /* Hero Section */
         .hero {
@@ -948,10 +945,7 @@
                 margin: 1.5rem 0;
             }
 
-            .mobile-menu {
-                display: block;
-                color: var(--white);
-            }
+            
 
             .hero h1 {
                 font-size: 2.5rem;
@@ -1001,15 +995,12 @@
                 <li><a href="contact.html">Contact</a></li>
                 <li><a href="login.html" class="login-btn">Login</a></li>
                 <li>
-                    <div class="cart-icon" onclick="toggleCart()">
+                    <div class="cart-icon" onclick="window.location.href='memberships.html'">
                         <i data-lucide="shopping-cart"></i>
                         <span class="cart-count" id="cartCount">0</span>
                     </div>
                 </li>
             </ul>
-            <div class="mobile-menu" onclick="toggleMobileMenu()">
-                <i data-lucide="menu"></i>
-            </div>
         </div>
     </nav>
 
@@ -1379,7 +1370,7 @@
         <div class="cart-content">
             <div class="cart-header">
                 <h2>Shopping Cart</h2>
-                <button class="close-cart" onclick="toggleCart()">&times;</button>
+                <button class="close-cart" onclick="window.location.href='memberships.html'">&times;</button>
             </div>
             <div class="cart-items" id="cartItems">
                 <div class="empty-cart">
@@ -1546,6 +1537,30 @@
                 nav.style.background = 'rgba(26, 26, 46, 0.95)';
             }
         });
+    
+        // Shared cart functionality across all pages
+        function loadCart() {
+            const savedCart = localStorage.getItem('elevateCart');
+            return savedCart ? JSON.parse(savedCart) : [];
+        }
+
+        function saveCart(cart) {
+            localStorage.setItem('elevateCart', JSON.stringify(cart));
+        }
+
+        function updateCartCount() {
+            const cart = loadCart();
+            const cartCountElements = document.querySelectorAll('.cart-count, #cartCount');
+            cartCountElements.forEach(el => {
+                if (el) el.textContent = cart.length;
+            });
+        }
+
+        // Update cart count on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            updateCartCount();
+        });
+
     </script>
 </body>
 </html>

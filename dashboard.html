@@ -83,7 +83,7 @@
             <a href="index.html" class="logo">ELEVATE<span>Fitness</span></a>
             <div class="nav-right">
                 <span class="user-email" id="userEmail"></span>
-                <button class="logout-btn" onclick="logout()">Logout</button>
+                <button class="logout-btn" onclick="window.location.href='memberships.html'">Logout</button>
             </div>
         </div>
     </nav>
@@ -291,6 +291,30 @@
             localStorage.removeItem('elevateEmail');
             window.location.href = 'login.html';
         }
+    
+        // Shared cart functionality across all pages
+        function loadCart() {
+            const savedCart = localStorage.getItem('elevateCart');
+            return savedCart ? JSON.parse(savedCart) : [];
+        }
+
+        function saveCart(cart) {
+            localStorage.setItem('elevateCart', JSON.stringify(cart));
+        }
+
+        function updateCartCount() {
+            const cart = loadCart();
+            const cartCountElements = document.querySelectorAll('.cart-count, #cartCount');
+            cartCountElements.forEach(el => {
+                if (el) el.textContent = cart.length;
+            });
+        }
+
+        // Update cart count on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            updateCartCount();
+        });
+
     </script>
 </body>
 </html>

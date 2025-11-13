@@ -244,7 +244,7 @@
             </button>
             
             <div style="text-align: center; margin-top: 1rem;">
-                <a href="#" onclick="showEmailForm(); return false;" style="color: var(--gray); font-size: 0.9rem;">← Back</a>
+                <a href="#" onclick="window.location.href='memberships.html'" style="color: var(--gray); font-size: 0.9rem;">← Back</a>
             </div>
         </form>
 
@@ -313,7 +313,32 @@
         document.addEventListener('DOMContentLoaded', function() {
             if (typeof lucide !== 'undefined') {
                 lucide.createIcons();
+                        
+            // Hamburger menu functionality
+            const hamburger = document.getElementById('hamburger');
+            const navLinks = document.getElementById('navLinks');
+
+            if (hamburger && navLinks) {
+                hamburger.addEventListener('click', () => {
+                    hamburger.classList.toggle('active');
+                    navLinks.classList.toggle('active');
+                });
+
+                document.querySelectorAll('.nav-links a').forEach(link => {
+                    link.addEventListener('click', () => {
+                        hamburger.classList.remove('active');
+                        navLinks.classList.remove('active');
+                    });
+                });
+
+                document.addEventListener('click', (e) => {
+                    if (!hamburger.contains(e.target) && !navLinks.contains(e.target)) {
+                        hamburger.classList.remove('active');
+                        navLinks.classList.remove('active');
+                    }
+                });
             }
+        }
             
             // Check if already logged in
             const loggedInEmail = localStorage.getItem('elevateEmail');
@@ -519,6 +544,30 @@
             document.getElementById('errorMessage').style.display = 'none';
             document.getElementById('successMessage').style.display = 'none';
         }
+    
+        // Shared cart functionality across all pages
+        function loadCart() {
+            const savedCart = localStorage.getItem('elevateCart');
+            return savedCart ? JSON.parse(savedCart) : [];
+        }
+
+        function saveCart(cart) {
+            localStorage.setItem('elevateCart', JSON.stringify(cart));
+        }
+
+        function updateCartCount() {
+            const cart = loadCart();
+            const cartCountElements = document.querySelectorAll('.cart-count, #cartCount');
+            cartCountElements.forEach(el => {
+                if (el) el.textContent = cart.length;
+            });
+        }
+
+        // Update cart count on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            updateCartCount();
+        });
+
     </script>
 </body>
 </html>

@@ -87,7 +87,7 @@
             color: var(--primary);
         }
 
-        .cart-icon { color: var(--white) !important;
+        .cart-icon {color: var(--white); color: var(--white) !important;
             position: relative;
             cursor: pointer;
             padding: 0.5rem;
@@ -403,10 +403,11 @@
                 <li><a href="memberships.html">Memberships</a></li>
                 <li><a href="about.html">About Us</a></li>
                 <li><a href="contact.html">Contact</a></li>
+                <li><a href="login.html">Login</a></li>
                 <li>
-                    <div class="cart-icon" onclick="alert('Cart feature - Navigate to memberships page to add items!')">
+                    <div class="cart-icon" onclick="window.location.href='memberships.html'">
                         <i data-lucide="shopping-cart"></i>
-                        <span class="cart-count">0</span>
+                        <span class="cart-count" id="cartCount">0</span>
                     </div>
                 </li>
             </ul>
@@ -705,6 +706,30 @@
             }
         }
         });
+    
+        // Shared cart functionality across all pages
+        function loadCart() {
+            const savedCart = localStorage.getItem('elevateCart');
+            return savedCart ? JSON.parse(savedCart) : [];
+        }
+
+        function saveCart(cart) {
+            localStorage.setItem('elevateCart', JSON.stringify(cart));
+        }
+
+        function updateCartCount() {
+            const cart = loadCart();
+            const cartCountElements = document.querySelectorAll('.cart-count, #cartCount');
+            cartCountElements.forEach(el => {
+                if (el) el.textContent = cart.length;
+            });
+        }
+
+        // Update cart count on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            updateCartCount();
+        });
+
     </script>
 </body>
 </html>
