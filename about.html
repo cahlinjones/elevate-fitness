@@ -23,6 +23,14 @@
         .nav-container { max-width: 1400px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; padding: 0 2rem; }
         .logo { font-size: 1.8rem; font-weight: 800; color: var(--white); text-decoration: none; letter-spacing: 1px; }
         .logo span { color: var(--primary); }
+        
+        /* Hamburger Menu */
+        .hamburger { display: none; flex-direction: column; cursor: pointer; z-index: 1001; }
+        .hamburger span { width: 25px; height: 3px; background: var(--white); margin: 3px 0; transition: 0.3s; border-radius: 3px; }
+        .hamburger.active span:nth-child(1) { transform: rotate(-45deg) translate(-5px, 6px); }
+        .hamburger.active span:nth-child(2) { opacity: 0; }
+        .hamburger.active span:nth-child(3) { transform: rotate(45deg) translate(-5px, -6px); }
+        
         .nav-links { display: flex; list-style: none; gap: 2.5rem; align-items: center; }
         .nav-links a { color: var(--white); text-decoration: none; font-weight: 600; transition: color 0.3s; font-size: 0.95rem; }
         .nav-links a:hover, .nav-links a.active { color: var(--primary); }
@@ -56,7 +64,10 @@
         .footer-logo span { color: var(--primary); }
         .footer-text { color: rgba(255, 255, 255, 0.7); margin-top: 2rem; padding-top: 2rem; border-top: 1px solid rgba(255, 255, 255, 0.1); }
         @media (max-width: 768px) {
-            .nav-links { display: none; }
+            .hamburger { display: flex; }
+            .nav-links { position: fixed; left: -100%; top: 0; flex-direction: column; background-color: rgba(26, 26, 46, 0.98); width: 100%; height: 100vh; text-align: center; transition: 0.3s; padding-top: 80px; gap: 0; }
+            .nav-links.active { left: 0; }
+            .nav-links li { margin: 1.5rem 0; }
             .page-header h1 { font-size: 2.5rem; }
             .owners-grid { grid-template-columns: 1fr; }
         }
@@ -67,7 +78,12 @@
     <nav>
         <div class="nav-container">
             <a href="index.html" class="logo">ELEVATE<span>Fitness</span></a>
-            <ul class="nav-links">
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <ul class="nav-links" id="navLinks">
                 <li><a href="index.html">Home</a></li>
                 <li><a href="amenities.html">Amenities</a></li>
                 <li><a href="classes.html">Classes</a></li>
@@ -178,6 +194,31 @@
         document.addEventListener('DOMContentLoaded', function() {
             if (typeof lucide !== 'undefined') {
                 lucide.createIcons();
+            }
+            
+            // Hamburger menu functionality
+            const hamburger = document.getElementById('hamburger');
+            const navLinks = document.getElementById('navLinks');
+
+            if (hamburger && navLinks) {
+                hamburger.addEventListener('click', () => {
+                    hamburger.classList.toggle('active');
+                    navLinks.classList.toggle('active');
+                });
+
+                document.querySelectorAll('.nav-links a').forEach(link => {
+                    link.addEventListener('click', () => {
+                        hamburger.classList.remove('active');
+                        navLinks.classList.remove('active');
+                    });
+                });
+
+                document.addEventListener('click', (e) => {
+                    if (!hamburger.contains(e.target) && !navLinks.contains(e.target)) {
+                        hamburger.classList.remove('active');
+                        navLinks.classList.remove('active');
+                    }
+                });
             }
         });
     </script>
