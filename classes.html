@@ -86,36 +86,17 @@
         .nav-links a.active {
             color: var(--primary);
         }
-
-        .cart-icon { color: var(--white);
-            position: relative;
-            cursor: pointer;
-            padding: 0.5rem;
-            border-radius: 50%;
-            transition: background 0.3s;
-        }
-
-        .cart-icon:hover {
-            background: rgba(255, 107, 53, 0.2);
-        }
-        .cart-icon i, .cart-icon svg { color: var(--white) !important; stroke: currentColor; }
-
-        .cart-count {
-            position: absolute;
-            top: 0;
-            right: 0;
-            background: var(--primary);
-            color: var(--white);
-            border-radius: 50%;
-            width: 20px;
-            height: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 0.75rem;
-            font-weight: 700;
-        }
+        .cart-icon { position: relative; cursor: pointer; padding: 0.5rem; border-radius: 50%; transition: background 0.3s; color: var(--white); }
+        .cart-icon:hover { background: rgba(220, 20, 60, 0.2); }
+        .cart-count { position: absolute; top: 0; right: 0; background: var(--primary); color: var(--white); border-radius: 50%; width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 700; }
         .cart-icon, .cart-icon i, .cart-icon svg { color: var(--white) !important; stroke: var(--white) !important; }
+        
+
+        
+        
+
+        
+        .cart-icon, 
 
         .page-header {
             background: linear-gradient(135deg, rgba(0, 78, 137, 0.95), rgba(255, 107, 53, 0.9));
@@ -679,9 +660,6 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            if (typeof lucide !== 'undefined') {
-                lucide.createIcons();
-                        
             // Hamburger menu functionality
             const hamburger = document.getElementById('hamburger');
             const navLinks = document.getElementById('navLinks');
@@ -706,8 +684,11 @@
                     }
                 });
             }
-        }
-        });
+            
+            if (typeof lucide !== 'undefined') {
+                lucide.createIcons();
+                        
+            
     
         // Shared cart functionality across all pages
         function loadCart() {
