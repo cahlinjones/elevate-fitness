@@ -3,16 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Classes & Services | Elevate Fitness</title>
+    <title>Fitness Classes | Elevate Fitness</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         :root {
             --primary: #DC143C;
             --primary-dark: #B01030;
@@ -22,351 +17,68 @@
             --white: #ffffff;
             --gray: #6c757d;
         }
-
-        body {
-            font-family: 'Open Sans', sans-serif;
-            line-height: 1.6;
-            color: var(--dark);
-            padding-top: 80px;
-        }
-
-        h1, h2, h3, h4, h5, h6 {
-            font-family: 'Montserrat', sans-serif;
-            font-weight: 700;
-        }
-
-        nav {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            background: rgba(26, 26, 46, 0.98);
-            backdrop-filter: blur(10px);
-            z-index: 1000;
-            padding: 1rem 0;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-        }
-
-        .nav-container {
-            max-width: 1400px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0 2rem;
-        }
-
-        .logo {
-            font-size: 1.8rem;
-            font-weight: 800;
-            color: var(--white);
-            text-decoration: none;
-            letter-spacing: 1px;
-        }
-
-        .logo span {
-            color: var(--primary);
-        }
-
-        .nav-links {
-            display: flex;
-            list-style: none;
-            gap: 2.5rem;
-            align-items: center;
-        }
-
-        .nav-links a {
-            color: var(--white);
-            text-decoration: none;
-            font-weight: 600;
-            transition: color 0.3s;
-            font-size: 0.95rem;
-        }
-
-        .nav-links a:hover,
-        .nav-links a.active {
-            color: var(--primary);
-        }
-        .cart-icon { position: relative; cursor: pointer; padding: 0.5rem; border-radius: 50%; transition: background 0.3s; color: var(--white); }
+        body { font-family: 'Open Sans', sans-serif; line-height: 1.6; color: var(--dark); padding-top: 80px; }
+        h1, h2, h3, h4, h5, h6 { font-family: 'Montserrat', sans-serif; font-weight: 700; }
+        
+        /* Navigation */
+        nav { position: fixed; top: 0; width: 100%; background: rgba(26, 26, 46, 0.98); backdrop-filter: blur(10px); z-index: 1000; padding: 1rem 0; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); }
+        .nav-container { max-width: 1400px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; padding: 0 2rem; }
+        .logo { font-size: 1.8rem; font-weight: 800; color: var(--white); text-decoration: none; letter-spacing: 1px; }
+        .logo span { color: var(--primary); }
+        
+        /* Hamburger Menu */
+        .hamburger { display: none; flex-direction: column; cursor: pointer; z-index: 1001; }
+        .hamburger span { width: 25px; height: 3px; background: var(--white); margin: 3px 0; transition: 0.3s; border-radius: 3px; }
+        .hamburger.active span:nth-child(1) { transform: rotate(-45deg) translate(-5px, 6px); }
+        .hamburger.active span:nth-child(2) { opacity: 0; }
+        .hamburger.active span:nth-child(3) { transform: rotate(45deg) translate(-5px, -6px); }
+        
+        .nav-links { display: flex; list-style: none; gap: 2.5rem; align-items: center; }
+        .nav-links a { color: var(--white); text-decoration: none; font-weight: 600; transition: color 0.3s; font-size: 0.95rem; }
+        .nav-links a:hover, .nav-links a.active { color: var(--primary); }
+        
+        /* Cart Icon */
+        .cart-icon { position: relative; cursor: pointer; padding: 0.5rem; border-radius: 50%; transition: all 0.3s; }
         .cart-icon:hover { background: rgba(220, 20, 60, 0.2); }
+        .cart-icon svg { color: var(--white) !important; stroke: var(--white) !important; }
         .cart-count { position: absolute; top: 0; right: 0; background: var(--primary); color: var(--white); border-radius: 50%; width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 700; }
-        .cart-icon, .cart-icon i, .cart-icon svg { color: var(--white) !important; stroke: var(--white) !important; }
         
-
+        .page-header { background: linear-gradient(135deg, rgba(30, 58, 138, 0.95), rgba(220, 20, 60, 0.9)); color: var(--white); padding: 5rem 2rem 3rem; text-align: center; }
+        .page-header h1 { font-size: 3.5rem; margin-bottom: 1rem; }
+        .page-header p { font-size: 1.3rem; max-width: 800px; margin: 0 auto; opacity: 0.95; }
         
+        .container { max-width: 1400px; margin: 0 auto; padding: 0 2rem; }
+        .section { padding: 5rem 2rem; }
         
-
+        /* Class Cards */
+        .classes-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 2.5rem; margin-top: 3rem; }
+        .class-card { background: var(--white); border-radius: 20px; overflow: hidden; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); transition: all 0.3s; }
+        .class-card:hover { transform: translateY(-10px); box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15); }
         
-        .cart-icon, 
-
-        .page-header {
-            background: linear-gradient(135deg, rgba(0, 78, 137, 0.95), rgba(255, 107, 53, 0.9));
-            color: var(--white);
-            padding: 5rem 2rem 3rem;
-            text-align: center;
-        }
-
-        .page-header h1 {
-            font-size: 3.5rem;
-            margin-bottom: 1rem;
-        }
-
-        .page-header p {
-            font-size: 1.3rem;
-            max-width: 800px;
-            margin: 0 auto;
-            opacity: 0.95;
-        }
-
-        .container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 0 2rem;
-        }
-
-        .section {
-            padding: 5rem 2rem;
-        }
-
-        .section-header {
-            text-align: center;
-            margin-bottom: 4rem;
-        }
-
-        .section-header h2 {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-            color: var(--dark);
-        }
-
-        .section-header p {
-            font-size: 1.2rem;
-            color: var(--gray);
-            max-width: 700px;
-            margin: 0 auto;
-        }
-
-        .classes-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 2.5rem;
-            margin-top: 3rem;
-        }
-
-        .class-card {
-            background: var(--white);
-            border-radius: 20px;
-            overflow: hidden;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
-            transition: all 0.3s;
-            border: 2px solid var(--light);
-        }
-
-        .class-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
-            border-color: var(--primary);
-        }
-
-        .class-image {
-            height: 200px;
-            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--white);
-            font-size: 4rem;
-        }
-
-        .class-content {
-            padding: 2rem;
-        }
-
-        .class-content h3 {
-            font-size: 1.8rem;
-            margin-bottom: 1rem;
-            color: var(--dark);
-        }
-
-        .class-content p {
-            color: var(--gray);
-            line-height: 1.8;
-            margin-bottom: 1.5rem;
-        }
-
-        .class-details {
-            display: flex;
-            gap: 1rem;
-            flex-wrap: wrap;
-            margin-bottom: 1.5rem;
-        }
-
-        .class-detail {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            color: var(--secondary);
-            font-weight: 600;
-            font-size: 0.95rem;
-        }
-
-        .btn {
-            padding: 0.9rem 2rem;
-            font-size: 1rem;
-            font-weight: 700;
-            text-decoration: none;
-            border-radius: 50px;
-            transition: all 0.3s;
-            cursor: pointer;
-            border: none;
-            font-family: 'Montserrat', sans-serif;
-            display: inline-block;
-            text-align: center;
-        }
-
-        .btn-primary {
-            background: var(--primary);
-            color: var(--white);
-        }
-
-        .btn-primary:hover {
-            background: var(--primary-dark);
-            transform: translateY(-2px);
-        }
-
-        .services-section {
-            background: var(--light);
-        }
-
-        .service-card {
-            background: linear-gradient(135deg, var(--secondary), #3B82F6);
-            color: var(--white);
-            padding: 3rem;
-            border-radius: 20px;
-            position: relative;
-            overflow: hidden;
-            transition: all 0.3s;
-        }
-
-        .service-card::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            right: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
-            transition: all 0.3s;
-        }
-
-        .service-card:hover::before {
-            transform: scale(1.2);
-        }
-
-        .service-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(0, 78, 137, 0.3);
-        }
-
-        .service-card h3 {
-            font-size: 2rem;
-            margin-bottom: 1rem;
-            position: relative;
-            z-index: 1;
-        }
-
-        .service-card p {
-            font-size: 1.1rem;
-            line-height: 1.8;
-            margin-bottom: 1.5rem;
-            position: relative;
-            z-index: 1;
-        }
-
-        .service-card .btn {
-            position: relative;
-            z-index: 1;
-        }
-
-        .schedule-section {
-            background: var(--white);
-        }
-
-        .schedule-table {
-            background: var(--white);
-            border-radius: 15px;
-            overflow: hidden;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
-            margin-top: 2rem;
-        }
-
-        .schedule-table table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-
-        .schedule-table th {
-            background: var(--secondary);
-            color: var(--white);
-            padding: 1.5rem 1rem;
-            text-align: left;
-            font-size: 1.1rem;
-        }
-
-        .schedule-table td {
-            padding: 1.5rem 1rem;
-            border-bottom: 1px solid var(--light);
-        }
-
-        .schedule-table tr:hover {
-            background: var(--light);
-        }
-
-        .class-time {
-            font-weight: 700;
-            color: var(--primary);
-        }
-
-        footer {
-            background: var(--dark);
-            color: var(--white);
-            padding: 3rem 2rem 1.5rem;
-            text-align: center;
-        }
-
-        .footer-logo {
-            font-size: 2rem;
-            font-weight: 800;
-            margin-bottom: 1rem;
-        }
-
-        .footer-logo span {
-            color: var(--primary);
-        }
-
-        .footer-text {
-            color: rgba(255, 255, 255, 0.7);
-            margin-top: 2rem;
-            padding-top: 2rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
+        .class-image { height: 200px; background: linear-gradient(135deg, var(--primary), var(--secondary)); display: flex; align-items: center; justify-content: center; color: var(--white); font-size: 4rem; }
+        .class-content { padding: 2rem; }
+        .class-card h3 { font-size: 1.8rem; color: var(--dark); margin-bottom: 1rem; }
+        .class-card p { color: var(--gray); line-height: 1.8; margin-bottom: 1.5rem; }
+        
+        .class-details { display: flex; gap: 1.5rem; margin-bottom: 1.5rem; flex-wrap: wrap; }
+        .detail-item { display: flex; align-items: center; gap: 0.5rem; color: var(--gray); font-size: 0.95rem; }
+        .detail-item svg { color: var(--primary); }
+        
+        .btn { display: inline-block; padding: 0.875rem 2rem; background: var(--primary); color: var(--white); text-decoration: none; border-radius: 50px; font-weight: 700; transition: all 0.3s; border: none; cursor: pointer; font-size: 0.95rem; }
+        .btn:hover { background: var(--primary-dark); transform: translateY(-3px); box-shadow: 0 6px 20px rgba(220, 20, 60, 0.4); }
+        
+        footer { background: var(--dark); color: var(--white); padding: 3rem 2rem 1.5rem; text-align: center; }
+        .footer-logo { font-size: 2rem; font-weight: 800; margin-bottom: 1rem; }
+        .footer-logo span { color: var(--primary); }
+        .footer-text { color: rgba(255, 255, 255, 0.7); margin-top: 2rem; padding-top: 2rem; border-top: 1px solid rgba(255, 255, 255, 0.1); }
+        
         @media (max-width: 768px) {
             .hamburger { display: flex; }
             .nav-links { position: fixed; left: -100%; top: 0; flex-direction: column; background-color: rgba(26, 26, 46, 0.98); width: 100%; height: 100vh; text-align: center; transition: 0.3s; padding-top: 80px; gap: 0; }
             .nav-links.active { left: 0; }
             .nav-links li { margin: 1.5rem 0; }
-
-            .page-header h1 {
-                font-size: 2.5rem;
-            }
-
-            .classes-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .schedule-table {
-                overflow-x: auto;
-            }
+            .page-header h1 { font-size: 2.5rem; }
+            .classes-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
@@ -374,12 +86,12 @@
     <nav>
         <div class="nav-container">
             <a href="index.html" class="logo">ELEVATE<span>Fitness</span></a>
-                        <div class="hamburger" id="hamburger">
+            <div class="hamburger" id="hamburger">
                 <span></span>
                 <span></span>
                 <span></span>
             </div>
-<ul class="nav-links" id="navLinks">
+            <ul class="nav-links" id="navLinks">
                 <li><a href="index.html">Home</a></li>
                 <li><a href="amenities.html">Amenities</a></li>
                 <li><a href="classes.html" class="active">Classes</a></li>
@@ -398,255 +110,153 @@
     </nav>
 
     <div class="page-header">
-        <h1>Classes & Services</h1>
-        <p>Expert-led programs designed to keep you motivated and achieving results</p>
+        <h1>Fitness Classes</h1>
+        <p>Energizing group classes for every fitness level</p>
     </div>
 
-    <!-- Group Fitness Classes -->
     <section class="section">
         <div class="container">
-            <div class="section-header">
-                <h2>Group Fitness Classes</h2>
-                <p>Join our energizing classes led by certified instructors</p>
-            </div>
             <div class="classes-grid">
+                <!-- Yoga -->
                 <div class="class-card">
                     <div class="class-image">
-                        <i data-lucide="flame"></i>
+                        <i data-lucide="flower-2"></i>
                     </div>
                     <div class="class-content">
-                        <h3>High-Intensity Interval Training (HIIT)</h3>
-                        <p>Burn maximum calories with intense bursts of exercise followed by short recovery periods. Perfect for building endurance and torch fat fast.</p>
+                        <h3>Yoga</h3>
+                        <p>Find your balance and flexibility with our yoga classes suitable for all levels. From gentle flow to power yoga, we have something for everyone.</p>
                         <div class="class-details">
-                            <span class="class-detail"><i data-lucide="clock"></i> 45 min</span>
-                            <span class="class-detail"><i data-lucide="users"></i> All Levels</span>
-                            <span class="class-detail"><i data-lucide="zap"></i> High Intensity</span>
+                            <div class="detail-item">
+                                <i data-lucide="clock"></i>
+                                <span>60 min</span>
+                            </div>
+                            <div class="detail-item">
+                                <i data-lucide="trending-up"></i>
+                                <span>All Levels</span>
+                            </div>
                         </div>
-                        <a href="contact.html" class="btn btn-primary">Book Class</a>
+                        <a href="contact.html" class="btn">View Schedule</a>
                     </div>
                 </div>
 
-                <div class="class-card">
-                    <div class="class-image">
-                        <i data-lucide="dumbbell"></i>
-                    </div>
-                    <div class="class-content">
-                        <h3>Strength & Conditioning</h3>
-                        <p>Build lean muscle and increase overall strength with weight training, resistance exercises, and functional movements.</p>
-                        <div class="class-details">
-                            <span class="class-detail"><i data-lucide="clock"></i> 60 min</span>
-                            <span class="class-detail"><i data-lucide="users"></i> All Levels</span>
-                            <span class="class-detail"><i data-lucide="trending-up"></i> Moderate</span>
-                        </div>
-                        <a href="contact.html" class="btn btn-primary">Book Class</a>
-                    </div>
-                </div>
-
-                <div class="class-card">
-                    <div class="class-image">
-                        <i data-lucide="heart"></i>
-                    </div>
-                    <div class="class-content">
-                        <h3>Yoga & Flexibility</h3>
-                        <p>Improve flexibility, balance, and mental clarity with various yoga styles from gentle flow to power yoga.</p>
-                        <div class="class-details">
-                            <span class="class-detail"><i data-lucide="clock"></i> 60 min</span>
-                            <span class="class-detail"><i data-lucide="users"></i> All Levels</span>
-                            <span class="class-detail"><i data-lucide="wind"></i> Low Impact</span>
-                        </div>
-                        <a href="contact.html" class="btn btn-primary">Book Class</a>
-                    </div>
-                </div>
-
+                <!-- Spin -->
                 <div class="class-card">
                     <div class="class-image">
                         <i data-lucide="bike"></i>
                     </div>
                     <div class="class-content">
                         <h3>Spin Class</h3>
-                        <p>High-energy indoor cycling with motivating music and dynamic instructors. Burn calories while having fun!</p>
+                        <p>High-energy cycling workouts with motivating music and expert instructors. Burn calories and build endurance in a fun group setting.</p>
                         <div class="class-details">
-                            <span class="class-detail"><i data-lucide="clock"></i> 45 min</span>
-                            <span class="class-detail"><i data-lucide="users"></i> All Levels</span>
-                            <span class="class-detail"><i data-lucide="zap"></i> High Intensity</span>
+                            <div class="detail-item">
+                                <i data-lucide="clock"></i>
+                                <span>45 min</span>
+                            </div>
+                            <div class="detail-item">
+                                <i data-lucide="flame"></i>
+                                <span>High Intensity</span>
+                            </div>
                         </div>
-                        <a href="contact.html" class="btn btn-primary">Book Class</a>
+                        <a href="contact.html" class="btn">View Schedule</a>
                     </div>
                 </div>
 
+                <!-- HIIT -->
                 <div class="class-card">
                     <div class="class-image">
-                        <i data-lucide="waves"></i>
+                        <i data-lucide="zap"></i>
                     </div>
                     <div class="class-content">
-                        <h3>Water Aerobics</h3>
-                        <p>Low-impact aquatic exercise perfect for all fitness levels. Easy on joints while providing excellent cardiovascular workout.</p>
+                        <h3>HIIT Training</h3>
+                        <p>Maximum results in minimum time! Our High-Intensity Interval Training classes combine cardio and strength for an efficient full-body workout.</p>
                         <div class="class-details">
-                            <span class="class-detail"><i data-lucide="clock"></i> 50 min</span>
-                            <span class="class-detail"><i data-lucide="users"></i> All Levels</span>
-                            <span class="class-detail"><i data-lucide="droplet"></i> Low Impact</span>
+                            <div class="detail-item">
+                                <i data-lucide="clock"></i>
+                                <span>30 min</span>
+                            </div>
+                            <div class="detail-item">
+                                <i data-lucide="flame"></i>
+                                <span>High Intensity</span>
+                            </div>
                         </div>
-                        <a href="contact.html" class="btn btn-primary">Book Class</a>
+                        <a href="contact.html" class="btn">View Schedule</a>
                     </div>
                 </div>
 
-                <div class="class-card">
-                    <div class="class-image">
-                        <i data-lucide="wind"></i>
-                    </div>
-                    <div class="class-content">
-                        <h3>Aerial Yoga</h3>
-                        <p>Experience yoga in a whole new way with aerial hammocks. Build core strength, flexibility, and have fun defying gravity!</p>
-                        <div class="class-details">
-                            <span class="class-detail"><i data-lucide="clock"></i> 60 min</span>
-                            <span class="class-detail"><i data-lucide="users"></i> Beginner+</span>
-                            <span class="class-detail"><i data-lucide="smile"></i> Moderate</span>
-                        </div>
-                        <a href="contact.html" class="btn btn-primary">Book Class</a>
-                    </div>
-                </div>
-
-                <div class="class-card">
-                    <div class="class-image">
-                        <i data-lucide="circle-dot"></i>
-                    </div>
-                    <div class="class-content">
-                        <h3>Pilates</h3>
-                        <p>Strengthen your core, improve posture, and increase flexibility with controlled, precise movements.</p>
-                        <div class="class-details">
-                            <span class="class-detail"><i data-lucide="clock"></i> 55 min</span>
-                            <span class="class-detail"><i data-lucide="users"></i> All Levels</span>
-                            <span class="class-detail"><i data-lucide="activity"></i> Moderate</span>
-                        </div>
-                        <a href="contact.html" class="btn btn-primary">Book Class</a>
-                    </div>
-                </div>
-
+                <!-- Zumba -->
                 <div class="class-card">
                     <div class="class-image">
                         <i data-lucide="music"></i>
                     </div>
                     <div class="class-content">
                         <h3>Zumba</h3>
-                        <p>Dance your way to fitness! Fun, high-energy workout featuring Latin and international music.</p>
+                        <p>Dance your way to fitness! Our Zumba classes combine Latin and international music with fun, effective workouts that feel like a party.</p>
                         <div class="class-details">
-                            <span class="class-detail"><i data-lucide="clock"></i> 50 min</span>
-                            <span class="class-detail"><i data-lucide="users"></i> All Levels</span>
-                            <span class="class-detail"><i data-lucide="smile"></i> High Energy</span>
+                            <div class="detail-item">
+                                <i data-lucide="clock"></i>
+                                <span>60 min</span>
+                            </div>
+                            <div class="detail-item">
+                                <i data-lucide="smile"></i>
+                                <span>All Levels</span>
+                            </div>
                         </div>
-                        <a href="contact.html" class="btn btn-primary">Book Class</a>
+                        <a href="contact.html" class="btn">View Schedule</a>
                     </div>
                 </div>
 
+                <!-- Strength Training -->
                 <div class="class-card">
                     <div class="class-image">
-                        <i data-lucide="sparkles"></i>
+                        <i data-lucide="dumbbell"></i>
                     </div>
                     <div class="class-content">
-                        <h3>SilverSneakers</h3>
-                        <p>Specially designed for active older adults seeking to improve strength, flexibility, and balance in a fun social setting.</p>
+                        <h3>Strength Training</h3>
+                        <p>Build muscle and increase strength with our guided weightlifting classes. Perfect for beginners and advanced lifters alike.</p>
                         <div class="class-details">
-                            <span class="class-detail"><i data-lucide="clock"></i> 50 min</span>
-                            <span class="class-detail"><i data-lucide="users"></i> Seniors</span>
-                            <span class="class-detail"><i data-lucide="heart"></i> Low Impact</span>
+                            <div class="detail-item">
+                                <i data-lucide="clock"></i>
+                                <span>45 min</span>
+                            </div>
+                            <div class="detail-item">
+                                <i data-lucide="trending-up"></i>
+                                <span>All Levels</span>
+                            </div>
                         </div>
-                        <a href="contact.html" class="btn btn-primary">Book Class</a>
+                        <a href="contact.html" class="btn">View Schedule</a>
+                    </div>
+                </div>
+
+                <!-- Aqua Aerobics -->
+                <div class="class-card">
+                    <div class="class-image">
+                        <i data-lucide="droplet"></i>
+                    </div>
+                    <div class="class-content">
+                        <h3>Aqua Aerobics</h3>
+                        <p>Low-impact water workouts that are easy on joints while providing excellent cardiovascular and strength benefits. Perfect for all ages.</p>
+                        <div class="class-details">
+                            <div class="detail-item">
+                                <i data-lucide="clock"></i>
+                                <span>50 min</span>
+                            </div>
+                            <div class="detail-item">
+                                <i data-lucide="heart"></i>
+                                <span>Low Impact</span>
+                            </div>
+                        </div>
+                        <a href="contact.html" class="btn">View Schedule</a>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Specialized Services -->
-    <section class="section services-section">
-        <div class="container">
-            <div class="section-header">
-                <h2>Specialized Services</h2>
-                <p>Take your fitness to the next level with our expert services</p>
-            </div>
-            <div class="classes-grid">
-                <div class="service-card">
-                    <h3>Personal Training</h3>
-                    <p>Work one-on-one with certified trainers who design customized programs specifically for your unique goals and fitness level. Get expert guidance, proper form correction, and the motivation you need to achieve results faster.</p>
-                    <a href="contact.html" class="btn btn-primary">Schedule Consultation</a>
-                </div>
-
-                <div class="service-card">
-                    <h3>Swimming & Aquatics</h3>
-                    <p>Our heated pool is perfect for lap swimming, water aerobics classes, and aquatic therapy. Whether you're training for a triathlon or seeking low-impact exercise, our aquatic programs deliver full-body workouts suitable for all ages and abilities.</p>
-                    <a href="contact.html" class="btn btn-primary">Learn More</a>
-                </div>
-
-                <div class="service-card">
-                    <h3>Physical Therapy</h3>
-                    <p>Our licensed physical therapists specialize in sports injury treatment, post-surgery rehabilitation, and chronic pain management. Get back to your activities faster with personalized treatment plans and expert care.</p>
-                    <a href="contact.html" class="btn btn-primary">Book Appointment</a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Sample Schedule -->
-    <section class="section schedule-section">
-        <div class="container">
-            <div class="section-header">
-                <h2>Sample Weekly Schedule</h2>
-                <p>Classes offered throughout the week - check with front desk for full current schedule</p>
-            </div>
-            <div class="schedule-table">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Time</th>
-                            <th>Monday</th>
-                            <th>Wednesday</th>
-                            <th>Friday</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td class="class-time">6:00 AM</td>
-                            <td>HIIT Blast</td>
-                            <td>Spin Class</td>
-                            <td>HIIT Blast</td>
-                        </tr>
-                        <tr>
-                            <td class="class-time">9:00 AM</td>
-                            <td>Yoga Flow</td>
-                            <td>Water Aerobics</td>
-                            <td>Pilates</td>
-                        </tr>
-                        <tr>
-                            <td class="class-time">10:00 AM</td>
-                            <td>SilverSneakers</td>
-                            <td>SilverSneakers</td>
-                            <td>SilverSneakers</td>
-                        </tr>
-                        <tr>
-                            <td class="class-time">12:00 PM</td>
-                            <td>Strength Training</td>
-                            <td>Zumba</td>
-                            <td>Strength Training</td>
-                        </tr>
-                        <tr>
-                            <td class="class-time">5:30 PM</td>
-                            <td>Spin Class</td>
-                            <td>HIIT Blast</td>
-                            <td>Yoga Flow</td>
-                        </tr>
-                        <tr>
-                            <td class="class-time">6:30 PM</td>
-                            <td>Aerial Yoga</td>
-                            <td>Strength Training</td>
-                            <td>Zumba</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            <div style="text-align: center; margin-top: 2rem;">
-                <p style="color: var(--gray); margin-bottom: 1rem;">Schedule subject to change. Contact us for the most current class times.</p>
-                <a href="contact.html" class="btn btn-primary">Contact for Full Schedule</a>
-            </div>
+    <section class="section" style="background: var(--light);">
+        <div class="container" style="text-align: center;">
+            <h2 style="font-size: 2.5rem; margin-bottom: 1rem;">All Classes Included</h2>
+            <p style="color: var(--gray); font-size: 1.2rem; max-width: 700px; margin: 0 auto 2rem;">All group fitness classes are included with your membership at no extra cost. Join as many classes as you'd like!</p>
+            <a href="memberships.html" class="btn" style="font-size: 1.1rem; padding: 1rem 2.5rem;">View Membership Plans</a>
         </div>
     </section>
 
@@ -659,60 +269,41 @@
     </footer>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Hamburger menu functionality
-            const hamburger = document.getElementById('hamburger');
-            const navLinks = document.getElementById('navLinks');
-
-            if (hamburger && navLinks) {
-                hamburger.addEventListener('click', () => {
-                    hamburger.classList.toggle('active');
-                    navLinks.classList.toggle('active');
-                });
-
-                document.querySelectorAll('.nav-links a').forEach(link => {
-                    link.addEventListener('click', () => {
-                        hamburger.classList.remove('active');
-                        navLinks.classList.remove('active');
-                    });
-                });
-
-                document.addEventListener('click', (e) => {
-                    if (!hamburger.contains(e.target) && !navLinks.contains(e.target)) {
-                        hamburger.classList.remove('active');
-                        navLinks.classList.remove('active');
-                    }
-                });
-            }
-            
-            if (typeof lucide !== 'undefined') {
-                lucide.createIcons();
-                        
-            
-    
-        // Shared cart functionality across all pages
-        function loadCart() {
-            const savedCart = localStorage.getItem('elevateCart');
-            return savedCart ? JSON.parse(savedCart) : [];
-        }
-
-        function saveCart(cart) {
-            localStorage.setItem('elevateCart', JSON.stringify(cart));
-        }
-
+        // Cart count sync
         function updateCartCount() {
-            const cart = loadCart();
-            const cartCountElements = document.querySelectorAll('.cart-count, #cartCount');
-            cartCountElements.forEach(el => {
-                if (el) el.textContent = cart.length;
-            });
+            const cart = localStorage.getItem('elevateCart');
+            const count = cart ? JSON.parse(cart).length : 0;
+            document.getElementById('cartCount').textContent = count;
         }
 
-        // Update cart count on page load
-        document.addEventListener('DOMContentLoaded', function() {
-            updateCartCount();
+        // Mobile Menu
+        const hamburger = document.getElementById('hamburger');
+        const navLinks = document.getElementById('navLinks');
+
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            navLinks.classList.toggle('active');
         });
 
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                navLinks.classList.remove('active');
+            });
+        });
+
+        document.addEventListener('click', (e) => {
+            if (!hamburger.contains(e.target) && !navLinks.contains(e.target)) {
+                hamburger.classList.remove('active');
+                navLinks.classList.remove('active');
+            }
+        });
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            lucide.createIcons();
+            updateCartCount();
+        });
     </script>
 </body>
 </html>

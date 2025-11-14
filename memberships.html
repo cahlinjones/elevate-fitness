@@ -7,12 +7,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         :root {
             --primary: #DC143C;
             --primary-dark: #B01030;
@@ -22,441 +17,97 @@
             --white: #ffffff;
             --gray: #6c757d;
         }
-
-        body {
-            font-family: 'Open Sans', sans-serif;
-            line-height: 1.6;
-            color: var(--dark);
-            padding-top: 80px;
-        }
-
-        h1, h2, h3, h4, h5, h6 {
-            font-family: 'Montserrat', sans-serif;
-            font-weight: 700;
-        }
-
-        nav {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            background: rgba(26, 26, 46, 0.98);
-            backdrop-filter: blur(10px);
-            z-index: 1000;
-            padding: 1rem 0;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-        }
-
-        .nav-container {
-            max-width: 1400px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0 2rem;
-        }
-
-        .logo {
-            font-size: 1.8rem;
-            font-weight: 800;
-            color: var(--white);
-            text-decoration: none;
-            letter-spacing: 1px;
-        }
-
-        .logo span {
-            color: var(--primary);
-        }
-
-        .nav-links {
-            display: flex;
-            list-style: none;
-            gap: 2.5rem;
-            align-items: center;
-        }
-
-        .nav-links a {
-            color: var(--white);
-            text-decoration: none;
-            font-weight: 600;
-            transition: color 0.3s;
-            font-size: 0.95rem;
-        }
-
-        .nav-links a:hover,
-        .nav-links a.active {
-            color: var(--primary);
-        }
-        .cart-icon { position: relative; cursor: pointer; padding: 0.5rem; border-radius: 50%; transition: background 0.3s; color: var(--white); }
+        body { font-family: 'Open Sans', sans-serif; line-height: 1.6; color: var(--dark); padding-top: 80px; }
+        h1, h2, h3, h4, h5, h6 { font-family: 'Montserrat', sans-serif; font-weight: 700; }
+        
+        /* Navigation */
+        nav { position: fixed; top: 0; width: 100%; background: rgba(26, 26, 46, 0.98); backdrop-filter: blur(10px); z-index: 1000; padding: 1rem 0; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); }
+        .nav-container { max-width: 1400px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; padding: 0 2rem; }
+        .logo { font-size: 1.8rem; font-weight: 800; color: var(--white); text-decoration: none; letter-spacing: 1px; }
+        .logo span { color: var(--primary); }
+        
+        /* Hamburger Menu */
+        .hamburger { display: none; flex-direction: column; cursor: pointer; z-index: 1001; }
+        .hamburger span { width: 25px; height: 3px; background: var(--white); margin: 3px 0; transition: 0.3s; border-radius: 3px; }
+        .hamburger.active span:nth-child(1) { transform: rotate(-45deg) translate(-5px, 6px); }
+        .hamburger.active span:nth-child(2) { opacity: 0; }
+        .hamburger.active span:nth-child(3) { transform: rotate(45deg) translate(-5px, -6px); }
+        
+        .nav-links { display: flex; list-style: none; gap: 2.5rem; align-items: center; }
+        .nav-links a { color: var(--white); text-decoration: none; font-weight: 600; transition: color 0.3s; font-size: 0.95rem; }
+        .nav-links a:hover, .nav-links a.active { color: var(--primary); }
+        
+        /* Cart Icon */
+        .cart-icon { position: relative; cursor: pointer; padding: 0.5rem; border-radius: 50%; transition: all 0.3s; }
         .cart-icon:hover { background: rgba(220, 20, 60, 0.2); }
+        .cart-icon svg { color: var(--white) !important; stroke: var(--white) !important; }
         .cart-count { position: absolute; top: 0; right: 0; background: var(--primary); color: var(--white); border-radius: 50%; width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 700; }
-        .cart-icon, .cart-icon i, .cart-icon svg { color: var(--white) !important; stroke: var(--white) !important; }
         
-
+        .page-header { background: linear-gradient(135deg, rgba(30, 58, 138, 0.95), rgba(220, 20, 60, 0.9)); color: var(--white); padding: 5rem 2rem 3rem; text-align: center; }
+        .page-header h1 { font-size: 3.5rem; margin-bottom: 1rem; }
+        .page-header p { font-size: 1.3rem; max-width: 800px; margin: 0 auto; opacity: 0.95; }
         
+        .container { max-width: 1400px; margin: 0 auto; padding: 0 2rem; }
+        .section { padding: 5rem 2rem; }
         
-
+        /* Membership Cards */
+        .membership-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2.5rem; margin-top: 3rem; }
+        .membership-card { background: var(--white); border-radius: 20px; padding: 3rem 2rem; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); transition: all 0.3s; position: relative; overflow: hidden; }
+        .membership-card::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 5px; background: linear-gradient(90deg, var(--primary), var(--secondary)); }
+        .membership-card:hover { transform: translateY(-10px); box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15); }
+        .membership-card.featured { border: 3px solid var(--primary); }
+        .featured-badge { position: absolute; top: 20px; right: -30px; background: var(--primary); color: var(--white); padding: 0.5rem 2.5rem; transform: rotate(45deg); font-weight: 700; font-size: 0.85rem; }
         
-        .cart-icon, 
-
-        .page-header {
-            background: linear-gradient(135deg, rgba(0, 78, 137, 0.95), rgba(255, 107, 53, 0.9));
-            color: var(--white);
-            padding: 5rem 2rem 3rem;
-            text-align: center;
-        }
-
-        .page-header h1 {
-            font-size: 3.5rem;
-            margin-bottom: 1rem;
-        }
-
-        .page-header p {
-            font-size: 1.3rem;
-            max-width: 800px;
-            margin: 0 auto;
-            opacity: 0.95;
-        }
-
-        .container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 0 2rem;
-        }
-
-        .section {
-            padding: 5rem 2rem;
-            background: var(--light);
-        }
-
-        .section-header {
-            text-align: center;
-            margin-bottom: 4rem;
-        }
-
-        .section-header h2 {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-            color: var(--dark);
-        }
-
-        .products-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 2.5rem;
-            margin-top: 3rem;
-        }
-
-        .product-card {
-            background: var(--white);
-            border-radius: 15px;
-            overflow: hidden;
-            transition: all 0.3s;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
-            border: 2px solid var(--light);
-        }
-
-        .product-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
-            border-color: var(--primary);
-        }
-
-        .product-image {
-            height: 220px;
-            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--white);
-            font-size: 4rem;
-        }
-
-        .product-content {
-            padding: 2rem;
-        }
-
-        .product-title {
-            font-size: 1.5rem;
-            margin-bottom: 0.5rem;
-            color: var(--dark);
-        }
-
-        .product-description {
-            color: var(--gray);
-            margin-bottom: 1.5rem;
-            line-height: 1.6;
-        }
-
-        .product-features {
-            list-style: none;
-            margin-bottom: 1.5rem;
-            padding-bottom: 1.5rem;
-            border-bottom: 2px solid var(--light);
-        }
-
-        .product-features li {
-            padding: 0.4rem 0;
-            color: var(--gray);
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .product-features li::before {
-            content: "✓";
-            color: var(--primary);
-            font-weight: 700;
-        }
-
-        .product-footer {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .product-price {
-            font-size: 1.8rem;
-            font-weight: 700;
-            color: var(--primary);
-        }
-
-        .product-price span {
-            font-size: 1rem;
-            color: var(--gray);
-            font-weight: 400;
-        }
-
-        .add-to-cart {
-            background: var(--primary);
-            color: var(--white);
-            border: none;
-            padding: 0.75rem 1.5rem;
-            border-radius: 50px;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.3s;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            font-family: 'Montserrat', sans-serif;
-        }
-
-        .add-to-cart:hover {
-            background: var(--primary-dark);
-            transform: scale(1.05);
-        }
-
-        /* Shopping Cart Modal */
-        .cart-modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.7);
-            z-index: 2000;
-            justify-content: flex-end;
-            align-items: flex-start;
-        }
-
-        .cart-modal.active {
-            display: flex;
-        }
-
-        .cart-content {
-            background: var(--white);
-            width: 100%;
-            max-width: 500px;
-            height: 100vh;
-            overflow-y: auto;
-            padding: 2rem;
-            box-shadow: -5px 0 25px rgba(0, 0, 0, 0.2);
-            animation: slideIn 0.3s ease;
-        }
-
-        @keyframes slideIn {
-            from { transform: translateX(100%); }
-            to { transform: translateX(0); }
-        }
-
-        .cart-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 2rem;
-            padding-bottom: 1rem;
-            border-bottom: 2px solid var(--light);
-        }
-
-        .cart-header h2 {
-            font-size: 1.8rem;
-            color: var(--dark);
-        }
-
-        .close-cart {
-            background: none;
-            border: none;
-            font-size: 2rem;
-            cursor: pointer;
-            color: var(--gray);
-            transition: color 0.3s;
-        }
-
-        .close-cart:hover {
-            color: var(--primary);
-        }
-
-        .cart-items {
-            margin-bottom: 2rem;
-        }
-
-        .cart-item {
-            display: flex;
-            gap: 1rem;
-            padding: 1.5rem 0;
-            border-bottom: 1px solid var(--light);
-        }
-
-        .cart-item-image {
-            width: 80px;
-            height: 80px;
-            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--white);
-            font-size: 2rem;
-            flex-shrink: 0;
-        }
-
-        .cart-item-details {
-            flex: 1;
-        }
-
-        .cart-item-title {
-            font-weight: 700;
-            margin-bottom: 0.5rem;
-            color: var(--dark);
-        }
-
-        .cart-item-price {
-            color: var(--primary);
-            font-weight: 700;
-        }
-
-        .remove-item {
-            background: none;
-            border: none;
-            color: var(--gray);
-            cursor: pointer;
-            padding: 0.5rem;
-            transition: color 0.3s;
-        }
-
-        .remove-item:hover {
-            color: var(--primary);
-        }
-
-        .cart-summary {
-            background: var(--light);
-            padding: 2rem;
-            border-radius: 15px;
-            margin-bottom: 1.5rem;
-        }
-
-        .cart-total {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--dark);
-        }
-
-        .cart-total-price {
-            color: var(--primary);
-        }
-
-        .empty-cart {
-            text-align: center;
-            padding: 3rem 1rem;
-            color: var(--gray);
-        }
-
-        .empty-cart-icon {
-            font-size: 4rem;
-            margin-bottom: 1rem;
-            opacity: 0.3;
-        }
-
-        .btn {
-            padding: 1rem 2.5rem;
-            font-size: 1.1rem;
-            font-weight: 700;
-            text-decoration: none;
-            border-radius: 50px;
-            transition: all 0.3s;
-            cursor: pointer;
-            border: none;
-            font-family: 'Montserrat', sans-serif;
-            display: inline-block;
-            width: 100%;
-            text-align: center;
-        }
-
-        .btn-primary {
-            background: var(--primary);
-            color: var(--white);
-        }
-
-        .btn-primary:hover {
-            background: var(--primary-dark);
-            transform: translateY(-2px);
-        }
-
-        footer {
-            background: var(--dark);
-            color: var(--white);
-            padding: 3rem 2rem 1.5rem;
-            text-align: center;
-        }
-
-        .footer-logo {
-            font-size: 2rem;
-            font-weight: 800;
-            margin-bottom: 1rem;
-        }
-
-        .footer-logo span {
-            color: var(--primary);
-        }
-
-        .footer-text {
-            color: rgba(255, 255, 255, 0.7);
-            margin-top: 2rem;
-            padding-top: 2rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
+        .membership-card h3 { font-size: 2rem; color: var(--dark); margin-bottom: 1rem; }
+        .price { font-size: 3rem; color: var(--primary); font-weight: 800; margin: 1.5rem 0; }
+        .price span { font-size: 1.2rem; color: var(--gray); font-weight: 400; }
+        
+        .features-list { list-style: none; margin: 2rem 0; }
+        .features-list li { padding: 0.75rem 0; border-bottom: 1px solid var(--light); display: flex; align-items: center; gap: 0.75rem; color: var(--gray); }
+        .features-list li:last-child { border-bottom: none; }
+        .features-list svg { color: var(--primary); flex-shrink: 0; }
+        
+        .btn { display: inline-block; padding: 1rem 2.5rem; background: var(--primary); color: var(--white); text-decoration: none; border-radius: 50px; font-weight: 700; transition: all 0.3s; border: none; cursor: pointer; font-size: 1rem; }
+        .btn:hover { background: var(--primary-dark); transform: translateY(-3px); box-shadow: 0 6px 20px rgba(220, 20, 60, 0.4); }
+        .btn-secondary { background: var(--secondary); }
+        .btn-secondary:hover { background: #003d6b; }
+        
+        /* Cart Sidebar */
+        .cart-sidebar { position: fixed; right: -400px; top: 0; width: 400px; height: 100vh; background: var(--white); box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1); z-index: 2000; transition: right 0.3s; padding: 2rem; overflow-y: auto; }
+        .cart-sidebar.active { right: 0; }
+        .cart-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100vh; background: rgba(0, 0, 0, 0.5); z-index: 1999; display: none; }
+        .cart-overlay.active { display: block; }
+        
+        .cart-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; padding-bottom: 1rem; border-bottom: 2px solid var(--light); }
+        .cart-header h2 { font-size: 1.8rem; color: var(--dark); }
+        .close-cart { cursor: pointer; padding: 0.5rem; border-radius: 50%; transition: all 0.3s; }
+        .close-cart:hover { background: var(--light); }
+        
+        .cart-items { margin-bottom: 2rem; }
+        .cart-item { padding: 1.5rem 0; border-bottom: 1px solid var(--light); }
+        .cart-item h4 { color: var(--dark); margin-bottom: 0.5rem; }
+        .cart-item p { color: var(--gray); margin-bottom: 0.5rem; }
+        .cart-item-price { color: var(--primary); font-weight: 700; font-size: 1.2rem; }
+        .remove-item { color: var(--primary); cursor: pointer; font-size: 0.9rem; font-weight: 600; }
+        .remove-item:hover { text-decoration: underline; }
+        
+        .cart-empty { text-align: center; padding: 3rem 0; color: var(--gray); }
+        .cart-total { padding: 1.5rem 0; border-top: 2px solid var(--dark); margin-top: 2rem; }
+        .cart-total h3 { display: flex; justify-content: space-between; font-size: 1.5rem; color: var(--dark); }
+        
+        footer { background: var(--dark); color: var(--white); padding: 3rem 2rem 1.5rem; text-align: center; }
+        .footer-logo { font-size: 2rem; font-weight: 800; margin-bottom: 1rem; }
+        .footer-logo span { color: var(--primary); }
+        .footer-text { color: rgba(255, 255, 255, 0.7); margin-top: 2rem; padding-top: 2rem; border-top: 1px solid rgba(255, 255, 255, 0.1); }
+        
         @media (max-width: 768px) {
             .hamburger { display: flex; }
             .nav-links { position: fixed; left: -100%; top: 0; flex-direction: column; background-color: rgba(26, 26, 46, 0.98); width: 100%; height: 100vh; text-align: center; transition: 0.3s; padding-top: 80px; gap: 0; }
             .nav-links.active { left: 0; }
             .nav-links li { margin: 1.5rem 0; }
-
-            .page-header h1 {
-                font-size: 2.5rem;
-            }
-
-            .products-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .cart-content {
-                max-width: 100%;
-            }
+            .page-header h1 { font-size: 2.5rem; }
+            .membership-grid { grid-template-columns: 1fr; }
+            .cart-sidebar { width: 100%; right: -100%; }
         }
     </style>
 </head>
@@ -464,12 +115,12 @@
     <nav>
         <div class="nav-container">
             <a href="index.html" class="logo">ELEVATE<span>Fitness</span></a>
-                        <div class="hamburger" id="hamburger">
+            <div class="hamburger" id="hamburger">
                 <span></span>
                 <span></span>
                 <span></span>
             </div>
-<ul class="nav-links" id="navLinks">
+            <ul class="nav-links" id="navLinks">
                 <li><a href="index.html">Home</a></li>
                 <li><a href="amenities.html">Amenities</a></li>
                 <li><a href="classes.html">Classes</a></li>
@@ -478,7 +129,7 @@
                 <li><a href="contact.html">Contact</a></li>
                 <li><a href="login.html">Login</a></li>
                 <li>
-                    <div class="cart-icon" onclick="toggleCart()">
+                    <div class="cart-icon" id="cartIcon">
                         <i data-lucide="shopping-cart"></i>
                         <span class="cart-count" id="cartCount">0</span>
                     </div>
@@ -487,182 +138,93 @@
         </div>
     </nav>
 
+    <!-- Cart Overlay -->
+    <div class="cart-overlay" id="cartOverlay"></div>
+
+    <!-- Cart Sidebar -->
+    <div class="cart-sidebar" id="cartSidebar">
+        <div class="cart-header">
+            <h2>Your Cart</h2>
+            <div class="close-cart" id="closeCart">
+                <i data-lucide="x"></i>
+            </div>
+        </div>
+        <div class="cart-items" id="cartItems">
+            <div class="cart-empty">Your cart is empty</div>
+        </div>
+        <div class="cart-total" id="cartTotal" style="display: none;">
+            <h3>Total: <span id="totalAmount">$0</span></h3>
+            <button class="btn" onclick="checkout()" style="width: 100%; margin-top: 1rem;">Proceed to Checkout</button>
+        </div>
+    </div>
+
     <div class="page-header">
-        <h1>Membership Options</h1>
-        <p>Choose the perfect plan and start your transformation today</p>
+        <h1>Membership Plans</h1>
+        <p>Choose the perfect plan for your fitness journey</p>
     </div>
 
     <section class="section">
         <div class="container">
-            <div class="section-header">
-                <h2>Select Your Membership</h2>
-            </div>
-            <div class="products-grid">
-                <div class="product-card">
-                    <div class="product-image">
-                        <i data-lucide="user"></i>
-                    </div>
-                    <div class="product-content">
-                        <h3 class="product-title">Individual Membership</h3>
-                        <p class="product-description">Full access to all facilities, classes, and amenities. No commitment, cancel anytime.</p>
-                        <ul class="product-features">
-                            <li>All gym equipment access</li>
-                            <li>Group fitness classes included</li>
-                            <li>Pool & sauna access</li>
-                            <li>No long-term contract</li>
-                        </ul>
-                        <div class="product-footer">
-                            <div class="product-price">$49<span>/month</span></div>
-                            <button class="add-to-cart" onclick="addToCart('Individual Membership', 49)">
-                                <i data-lucide="plus"></i>
-                                Add to Cart
-                            </button>
-                        </div>
-                    </div>
+            <div class="membership-grid">
+                <!-- Individual Membership -->
+                <div class="membership-card">
+                    <h3>Individual</h3>
+                    <div class="price">$49<span>/month</span></div>
+                    <ul class="features-list">
+                        <li><i data-lucide="check"></i> Full gym access</li>
+                        <li><i data-lucide="check"></i> All group fitness classes</li>
+                        <li><i data-lucide="check"></i> Pool & hot tub access</li>
+                        <li><i data-lucide="check"></i> Basketball & racquetball courts</li>
+                        <li><i data-lucide="check"></i> Cardio & weight equipment</li>
+                    </ul>
+                    <button class="btn" onclick="addToCart('Individual Membership', 49)">Add to Cart</button>
                 </div>
 
-                <div class="product-card">
-                    <div class="product-image">
-                        <i data-lucide="users"></i>
-                    </div>
-                    <div class="product-content">
-                        <h3 class="product-title">Family Membership</h3>
-                        <p class="product-description">Complete access for your entire family. Up to 4 members with unlimited use of all facilities.</p>
-                        <ul class="product-features">
-                            <li>Up to 4 family members</li>
-                            <li>All amenities included</li>
-                            <li>Best value for families</li>
-                            <li>Kids classes available</li>
-                        </ul>
-                        <div class="product-footer">
-                            <div class="product-price">$129<span>/month</span></div>
-                            <button class="add-to-cart" onclick="addToCart('Family Membership', 129)">
-                                <i data-lucide="plus"></i>
-                                Add to Cart
-                            </button>
-                        </div>
-                    </div>
+                <!-- Family Membership -->
+                <div class="membership-card featured">
+                    <div class="featured-badge">BEST VALUE</div>
+                    <h3>Family</h3>
+                    <div class="price">$129<span>/month</span></div>
+                    <ul class="features-list">
+                        <li><i data-lucide="check"></i> Up to 4 family members</li>
+                        <li><i data-lucide="check"></i> All Individual benefits</li>
+                        <li><i data-lucide="check"></i> Kids programs included</li>
+                        <li><i data-lucide="check"></i> Family swim times</li>
+                        <li><i data-lucide="check"></i> Guest passes (2/month)</li>
+                    </ul>
+                    <button class="btn" onclick="addToCart('Family Membership', 129)">Add to Cart</button>
                 </div>
 
-                <div class="product-card">
-                    <div class="product-image">
-                        <i data-lucide="award"></i>
-                    </div>
-                    <div class="product-content">
-                        <h3 class="product-title">Premium Membership</h3>
-                        <p class="product-description">All access plus 4 personal training sessions per month and priority class booking.</p>
-                        <ul class="product-features">
-                            <li>4 personal training sessions/month</li>
-                            <li>Priority class reservations</li>
-                            <li>InBody scans included</li>
-                            <li>Guest passes</li>
-                        </ul>
-                        <div class="product-footer">
-                            <div class="product-price">$99<span>/month</span></div>
-                            <button class="add-to-cart" onclick="addToCart('Premium Membership', 99)">
-                                <i data-lucide="plus"></i>
-                                Add to Cart
-                            </button>
-                        </div>
-                    </div>
+                <!-- Senior Membership -->
+                <div class="membership-card">
+                    <h3>Senior (60+)</h3>
+                    <div class="price">$35<span>/month</span></div>
+                    <ul class="features-list">
+                        <li><i data-lucide="check"></i> Full gym access</li>
+                        <li><i data-lucide="check"></i> Senior fitness classes</li>
+                        <li><i data-lucide="check"></i> Pool access</li>
+                        <li><i data-lucide="check"></i> SilverSneakers accepted</li>
+                        <li><i data-lucide="check"></i> Flexible hours</li>
+                    </ul>
+                    <button class="btn" onclick="addToCart('Senior Membership', 35)">Add to Cart</button>
                 </div>
 
-                <div class="product-card">
-                    <div class="product-image">
-                        <i data-lucide="calendar"></i>
-                    </div>
-                    <div class="product-content">
-                        <h3 class="product-title">Day Pass</h3>
-                        <p class="product-description">Perfect for visitors or those wanting to try us out. Full access for one day to all facilities.</p>
-                        <ul class="product-features">
-                            <li>One day access</li>
-                            <li>All amenities included</li>
-                            <li>Try before you buy</li>
-                            <li>Great for visitors</li>
-                        </ul>
-                        <div class="product-footer">
-                            <div class="product-price">$15<span>/day</span></div>
-                            <button class="add-to-cart" onclick="addToCart('Day Pass', 15)">
-                                <i data-lucide="plus"></i>
-                                Add to Cart
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="product-card">
-                    <div class="product-image">
-                        <i data-lucide="heart"></i>
-                    </div>
-                    <div class="product-content">
-                        <h3 class="product-title">Senior Membership</h3>
-                        <p class="product-description">Special pricing for seniors 65+. Includes SilverSneakers and all insurance fitness programs.</p>
-                        <ul class="product-features">
-                            <li>Ages 65+ discount</li>
-                            <li>SilverSneakers accepted</li>
-                            <li>Insurance programs welcome</li>
-                            <li>Senior-friendly classes</li>
-                        </ul>
-                        <div class="product-footer">
-                            <div class="product-price">$35<span>/month</span></div>
-                            <button class="add-to-cart" onclick="addToCart('Senior Membership', 35)">
-                                <i data-lucide="plus"></i>
-                                Add to Cart
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="product-card">
-                    <div class="product-image">
-                        <i data-lucide="target"></i>
-                    </div>
-                    <div class="product-content">
-                        <h3 class="product-title">Personal Training Package</h3>
-                        <p class="product-description">10 one-on-one training sessions with a certified personal trainer. Customized program included.</p>
-                        <ul class="product-features">
-                            <li>10 training sessions</li>
-                            <li>Certified trainers</li>
-                            <li>Custom program design</li>
-                            <li>Progress tracking</li>
-                        </ul>
-                        <div class="product-footer">
-                            <div class="product-price">$499<span>/package</span></div>
-                            <button class="add-to-cart" onclick="addToCart('Personal Training Package', 499)">
-                                <i data-lucide="plus"></i>
-                                Add to Cart
-                            </button>
-                        </div>
-                    </div>
+                <!-- Day Pass -->
+                <div class="membership-card">
+                    <h3>Day Pass</h3>
+                    <div class="price">$10<span>/day</span></div>
+                    <ul class="features-list">
+                        <li><i data-lucide="check"></i> Full gym access</li>
+                        <li><i data-lucide="check"></i> Group fitness classes</li>
+                        <li><i data-lucide="check"></i> Pool access</li>
+                        <li><i data-lucide="check"></i> Valid for 24 hours</li>
+                        <li><i data-lucide="check"></i> No commitment</li>
+                    </ul>
+                    <button class="btn btn-secondary" onclick="addToCart('Day Pass', 10)">Add to Cart</button>
                 </div>
             </div>
         </div>
     </section>
-
-    <!-- Shopping Cart Modal -->
-    <div class="cart-modal" id="cartModal">
-        <div class="cart-content">
-            <div class="cart-header">
-                <h2>Shopping Cart</h2>
-                <button class="close-cart" onclick="toggleCart()">&times;</button>
-            </div>
-            <div class="cart-items" id="cartItems">
-                <div class="empty-cart">
-                    <div class="empty-cart-icon">
-                        <i data-lucide="shopping-bag"></i>
-                    </div>
-                    <p>Your cart is empty</p>
-                </div>
-            </div>
-            <div class="cart-summary" id="cartSummary" style="display: none;">
-                <div class="cart-total">
-                    <span>Total:</span>
-                    <span class="cart-total-price" id="cartTotal">$0.00</span>
-                </div>
-            </div>
-            <button class="btn btn-primary" onclick="checkout()">Proceed to Checkout</button>
-        </div>
-    </div>
 
     <footer>
         <div class="footer-content">
@@ -673,161 +235,134 @@
     </footer>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Hamburger menu functionality
-            const hamburger = document.getElementById('hamburger');
-            const navLinks = document.getElementById('navLinks');
+        // Cart Management
+        function loadCart() {
+            const savedCart = localStorage.getItem('elevateCart');
+            return savedCart ? JSON.parse(savedCart) : [];
+        }
 
-            if (hamburger && navLinks) {
-                hamburger.addEventListener('click', () => {
-                    hamburger.classList.toggle('active');
-                    navLinks.classList.toggle('active');
-                });
-
-                document.querySelectorAll('.nav-links a').forEach(link => {
-                    link.addEventListener('click', () => {
-                        hamburger.classList.remove('active');
-                        navLinks.classList.remove('active');
-                    });
-                });
-
-                document.addEventListener('click', (e) => {
-                    if (!hamburger.contains(e.target) && !navLinks.contains(e.target)) {
-                        hamburger.classList.remove('active');
-                        navLinks.classList.remove('active');
-                    }
-                });
-            }
-            
-            
-            // Shared cart functionality across all pages
-            function loadCart() {
-                const savedCart = localStorage.getItem('elevateCart');
-                return savedCart ? JSON.parse(savedCart) : [];
-            }
-
-            function updateCartCount() {
-                const cart = loadCart();
-                const cartCountElements = document.querySelectorAll('.cart-count, #cartCount');
-                cartCountElements.forEach(el => {
-                    if (el) el.textContent = cart.length;
-                });
-            }
-
-            // Update cart count on page load
-            updateCartCount();
-
-            if (typeof lucide !== 'undefined') {
-                lucide.createIcons();
-                        
-            function addToCart(name, price) {
-            cart.push({ name, price });
+        function saveCart(cart) {
             localStorage.setItem('elevateCart', JSON.stringify(cart));
-            updateCart();
-            toggleCart();
+            updateCartDisplay();
+        }
+
+        function addToCart(name, price) {
+            const cart = loadCart();
+            cart.push({ name, price });
+            saveCart(cart);
+            showNotification(`${name} added to cart!`);
         }
 
         function removeFromCart(index) {
+            const cart = loadCart();
             cart.splice(index, 1);
-            localStorage.setItem('elevateCart', JSON.stringify(cart));
-            updateCart();
+            saveCart(cart);
         }
 
-        function updateCart() {
+        function updateCartDisplay() {
+            const cart = loadCart();
             const cartCount = document.getElementById('cartCount');
             const cartItems = document.getElementById('cartItems');
-            const cartSummary = document.getElementById('cartSummary');
             const cartTotal = document.getElementById('cartTotal');
+            const totalAmount = document.getElementById('totalAmount');
 
+            // Update count
             cartCount.textContent = cart.length;
 
+            // Update cart items
             if (cart.length === 0) {
-                cartItems.innerHTML = `
-                    <div class="empty-cart">
-                        <div class="empty-cart-icon">
-                            <i data-lucide="shopping-bag"></i>
-                        </div>
-                        <p>Your cart is empty</p>
-                    </div>
-                `;
-                cartSummary.style.display = 'none';
+                cartItems.innerHTML = '<div class="cart-empty">Your cart is empty</div>';
+                cartTotal.style.display = 'none';
             } else {
-                let total = 0;
-                cartItems.innerHTML = cart.map((item, index) => {
-                    total += item.price;
-                    return `
-                        <div class="cart-item">
-                            <div class="cart-item-image">
-                                <i data-lucide="shopping-bag"></i>
-                            </div>
-                            <div class="cart-item-details">
-                                <div class="cart-item-title">${item.name}</div>
-                                <div class="cart-item-price">$${item.price.toFixed(2)}</div>
-                            </div>
-                            <button class="remove-item" onclick="removeFromCart(${index})">
-                                <i data-lucide="x"></i>
-                            </button>
-                        </div>
-                    `;
-                }).join('');
-                cartTotal.textContent = `$${total.toFixed(2)}`;
-                cartSummary.style.display = 'block';
-            }
+                cartItems.innerHTML = cart.map((item, index) => `
+                    <div class="cart-item">
+                        <h4>${item.name}</h4>
+                        <p class="cart-item-price">$${item.price}</p>
+                        <span class="remove-item" onclick="removeFromCart(${index})">Remove</span>
+                    </div>
+                `).join('');
 
-            if (typeof lucide !== 'undefined') {
-                lucide.createIcons();
+                const total = cart.reduce((sum, item) => sum + item.price, 0);
+                totalAmount.textContent = `$${total}`;
+                cartTotal.style.display = 'block';
             }
         }
 
-        function toggleCart() {
-            const cartModal = document.getElementById('cartModal');
-            cartModal.classList.toggle('active');
+        function showNotification(message) {
+            const notification = document.createElement('div');
+            notification.textContent = message;
+            notification.style.cssText = 'position: fixed; top: 100px; right: 20px; background: #10b981; color: white; padding: 1rem 2rem; border-radius: 10px; z-index: 10000; animation: slideIn 0.3s ease;';
+            document.body.appendChild(notification);
+            setTimeout(() => notification.remove(), 3000);
         }
 
         async function checkout() {
-            if (cart.length === 0) {
-                alert('Your cart is empty!');
-                return;
-            }
-
-            // Show loading state
-            const checkoutBtn = document.querySelector('.btn-primary');
-            const originalText = checkoutBtn.textContent;
-            checkoutBtn.textContent = 'Processing...';
-            checkoutBtn.disabled = true;
+            const cart = loadCart();
+            if (cart.length === 0) return;
 
             try {
-                // Call our Netlify serverless function to create Stripe checkout
-                const response = await fetch('/api/create-checkout', {
+                const response = await fetch('/.netlify/functions/create-subscription', {
                     method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({
-                        items: cart
-                    })
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ items: cart })
                 });
 
                 const data = await response.json();
-
-                if (!response.ok) {
-                    throw new Error(data.message || 'Payment processing failed');
-                }
-
-                // Redirect to Stripe Checkout
                 if (data.url) {
                     window.location.href = data.url;
                 } else {
-                    throw new Error('No checkout URL received');
+                    alert('Checkout error. Please try again.');
                 }
-
             } catch (error) {
                 console.error('Checkout error:', error);
-                alert('There was an error processing your payment. Please try again or call us at (208) 233-8035.');
-                checkoutBtn.textContent = originalText;
-                checkoutBtn.disabled = false;
+                alert('Checkout error. Please try again.');
             }
         }
+
+        // Cart UI Controls
+        document.getElementById('cartIcon').addEventListener('click', () => {
+            document.getElementById('cartSidebar').classList.add('active');
+            document.getElementById('cartOverlay').classList.add('active');
+        });
+
+        document.getElementById('closeCart').addEventListener('click', () => {
+            document.getElementById('cartSidebar').classList.remove('active');
+            document.getElementById('cartOverlay').classList.remove('active');
+        });
+
+        document.getElementById('cartOverlay').addEventListener('click', () => {
+            document.getElementById('cartSidebar').classList.remove('active');
+            document.getElementById('cartOverlay').classList.remove('active');
+        });
+
+        // Mobile Menu
+        const hamburger = document.getElementById('hamburger');
+        const navLinks = document.getElementById('navLinks');
+
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            navLinks.classList.toggle('active');
+        });
+
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                navLinks.classList.remove('active');
+            });
+        });
+
+        document.addEventListener('click', (e) => {
+            if (!hamburger.contains(e.target) && !navLinks.contains(e.target)) {
+                hamburger.classList.remove('active');
+                navLinks.classList.remove('active');
+            }
+        });
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            lucide.createIcons();
+            updateCartDisplay();
+        });
     </script>
 </body>
 </html>

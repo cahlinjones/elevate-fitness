@@ -7,12 +7,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         :root {
             --primary: #DC143C;
             --primary-dark: #B01030;
@@ -22,279 +17,80 @@
             --white: #ffffff;
             --gray: #6c757d;
         }
-
-        body {
-            font-family: 'Open Sans', sans-serif;
-            line-height: 1.6;
-            color: var(--dark);
-            padding-top: 80px;
-        }
-
-        h1, h2, h3, h4, h5, h6 {
-            font-family: 'Montserrat', sans-serif;
-            font-weight: 700;
-        }
-
+        body { font-family: 'Open Sans', sans-serif; line-height: 1.6; color: var(--dark); padding-top: 80px; }
+        h1, h2, h3, h4, h5, h6 { font-family: 'Montserrat', sans-serif; font-weight: 700; }
+        
         /* Navigation */
-        nav {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            background: rgba(26, 26, 46, 0.98);
-            backdrop-filter: blur(10px);
-            z-index: 1000;
-            padding: 1rem 0;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-        }
-
-        .nav-container {
-            max-width: 1400px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0 2rem;
-        }
-
-        .logo {
-            font-size: 1.8rem;
-            font-weight: 800;
-            color: var(--white);
-            text-decoration: none;
-            letter-spacing: 1px;
-        }
-
-        .logo span {
-            color: var(--primary);
-        }
-
-        .nav-links {
-            display: flex;
-            list-style: none;
-            gap: 2.5rem;
-            align-items: center;
-        }
-
-        .nav-links a {
-            color: var(--white);
-            text-decoration: none;
-            font-weight: 600;
-            transition: color 0.3s;
-            font-size: 0.95rem;
-        }
-
-        .nav-links a:hover,
-        .nav-links a.active {
-            color: var(--primary);
-        }
-        .cart-icon { position: relative; cursor: pointer; padding: 0.5rem; border-radius: 50%; transition: background 0.3s; color: var(--white); }
+        nav { position: fixed; top: 0; width: 100%; background: rgba(26, 26, 46, 0.98); backdrop-filter: blur(10px); z-index: 1000; padding: 1rem 0; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); }
+        .nav-container { max-width: 1400px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; padding: 0 2rem; }
+        .logo { font-size: 1.8rem; font-weight: 800; color: var(--white); text-decoration: none; letter-spacing: 1px; }
+        .logo span { color: var(--primary); }
+        
+        /* Hamburger Menu */
+        .hamburger { display: none; flex-direction: column; cursor: pointer; z-index: 1001; }
+        .hamburger span { width: 25px; height: 3px; background: var(--white); margin: 3px 0; transition: 0.3s; border-radius: 3px; }
+        .hamburger.active span:nth-child(1) { transform: rotate(-45deg) translate(-5px, 6px); }
+        .hamburger.active span:nth-child(2) { opacity: 0; }
+        .hamburger.active span:nth-child(3) { transform: rotate(45deg) translate(-5px, -6px); }
+        
+        .nav-links { display: flex; list-style: none; gap: 2.5rem; align-items: center; }
+        .nav-links a { color: var(--white); text-decoration: none; font-weight: 600; transition: color 0.3s; font-size: 0.95rem; }
+        .nav-links a:hover, .nav-links a.active { color: var(--primary); }
+        
+        /* Cart Icon */
+        .cart-icon { position: relative; cursor: pointer; padding: 0.5rem; border-radius: 50%; transition: all 0.3s; }
         .cart-icon:hover { background: rgba(220, 20, 60, 0.2); }
+        .cart-icon svg { color: var(--white) !important; stroke: var(--white) !important; }
         .cart-count { position: absolute; top: 0; right: 0; background: var(--primary); color: var(--white); border-radius: 50%; width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 700; }
-        .cart-icon, .cart-icon i, .cart-icon svg { color: var(--white) !important; stroke: var(--white) !important; }
         
-
+        .page-header { background: linear-gradient(135deg, rgba(30, 58, 138, 0.95), rgba(220, 20, 60, 0.9)); color: var(--white); padding: 5rem 2rem 3rem; text-align: center; }
+        .page-header h1 { font-size: 3.5rem; margin-bottom: 1rem; }
+        .page-header p { font-size: 1.3rem; max-width: 800px; margin: 0 auto; opacity: 0.95; }
         
+        .container { max-width: 1400px; margin: 0 auto; padding: 0 2rem; }
+        .section { padding: 5rem 2rem; }
         
-
+        /* Amenity Cards */
+        .amenities-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2.5rem; margin-top: 3rem; }
+        .amenity-card { background: var(--white); border-radius: 20px; padding: 2.5rem; text-align: center; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); transition: all 0.3s; }
+        .amenity-card:hover { transform: translateY(-10px); box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15); }
         
-        .cart-icon, 
-
-        /* Page Header */
-        .page-header {
-            background: linear-gradient(135deg, rgba(0, 78, 137, 0.95), rgba(255, 107, 53, 0.9));
-            color: var(--white);
-            padding: 5rem 2rem 3rem;
-            text-align: center;
-        }
-
-        .page-header h1 {
-            font-size: 3.5rem;
-            margin-bottom: 1rem;
-        }
-
-        .page-header p {
-            font-size: 1.3rem;
-            max-width: 800px;
-            margin: 0 auto;
-            opacity: 0.95;
-        }
-
-        /* Container */
-        .container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 0 2rem;
-        }
-
-        /* Amenities Grid */
-        .amenities-section {
-            padding: 5rem 2rem;
-            background: var(--white);
-        }
-
-        .amenities-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 3rem;
-            margin-top: 3rem;
-        }
-
-        .amenity-card {
-            background: var(--white);
-            padding: 2.5rem;
-            border-radius: 20px;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
-            transition: all 0.3s;
-            border: 2px solid var(--light);
-        }
-
-        .amenity-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
-            border-color: var(--primary);
-        }
-
-        .amenity-icon {
-            width: 80px;
-            height: 80px;
-            background: linear-gradient(135deg, var(--secondary), #3B82F6);
-            border-radius: 15px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--white);
-            margin-bottom: 1.5rem;
-        }
-
-        .amenity-card h3 {
-            font-size: 1.8rem;
-            margin-bottom: 1rem;
-            color: var(--dark);
-        }
-
-        .amenity-card p {
-            color: var(--gray);
-            line-height: 1.8;
-            font-size: 1.05rem;
-        }
-
-        .amenity-features {
-            list-style: none;
-            margin-top: 1.5rem;
-            padding-top: 1.5rem;
-            border-top: 2px solid var(--light);
-        }
-
-        .amenity-features li {
-            padding: 0.5rem 0;
-            color: var(--gray);
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-        }
-
-        .amenity-features li::before {
-            content: "✓";
-            color: var(--primary);
-            font-weight: 700;
-            font-size: 1.2rem;
-        }
-
-        /* CTA Section */
-        .cta-section {
-            padding: 5rem 2rem;
-            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-            color: var(--white);
-            text-align: center;
-        }
-
-        .cta-section h2 {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-        }
-
-        .cta-section p {
-            font-size: 1.2rem;
-            margin-bottom: 2rem;
-            opacity: 0.95;
-        }
-
-        .btn {
-            padding: 1rem 2.5rem;
-            font-size: 1.1rem;
-            font-weight: 700;
-            text-decoration: none;
-            border-radius: 50px;
-            transition: all 0.3s;
-            cursor: pointer;
-            border: none;
-            font-family: 'Montserrat', sans-serif;
-            display: inline-block;
-        }
-
-        .btn-secondary {
-            background: var(--white);
-            color: var(--primary);
-        }
-
-        .btn-secondary:hover {
-            background: var(--light);
-            transform: translateY(-3px);
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
-        }
-
-        /* Footer */
-        footer {
-            background: var(--dark);
-            color: var(--white);
-            padding: 3rem 2rem 1.5rem;
-            text-align: center;
-        }
-
-        .footer-logo {
-            font-size: 2rem;
-            font-weight: 800;
-            margin-bottom: 1rem;
-        }
-
-        .footer-logo span {
-            color: var(--primary);
-        }
-
-        .footer-text {
-            color: rgba(255, 255, 255, 0.7);
-            margin-top: 2rem;
-            padding-top: 2rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
+        .amenity-icon { width: 100px; height: 100px; background: linear-gradient(135deg, var(--primary), var(--secondary)); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem; color: var(--white); }
+        .amenity-card h3 { font-size: 1.8rem; color: var(--dark); margin-bottom: 1rem; }
+        .amenity-card p { color: var(--gray); line-height: 1.8; }
+        
+        .highlight-section { background: var(--light); padding: 5rem 2rem; text-align: center; }
+        .highlight-section h2 { font-size: 2.5rem; margin-bottom: 1rem; }
+        .highlight-section p { font-size: 1.2rem; color: var(--gray); max-width: 800px; margin: 0 auto 2rem; }
+        
+        .btn { display: inline-block; padding: 1rem 2.5rem; background: var(--primary); color: var(--white); text-decoration: none; border-radius: 50px; font-weight: 700; transition: all 0.3s; font-size: 1rem; }
+        .btn:hover { background: var(--primary-dark); transform: translateY(-3px); box-shadow: 0 6px 20px rgba(220, 20, 60, 0.4); }
+        
+        footer { background: var(--dark); color: var(--white); padding: 3rem 2rem 1.5rem; text-align: center; }
+        .footer-logo { font-size: 2rem; font-weight: 800; margin-bottom: 1rem; }
+        .footer-logo span { color: var(--primary); }
+        .footer-text { color: rgba(255, 255, 255, 0.7); margin-top: 2rem; padding-top: 2rem; border-top: 1px solid rgba(255, 255, 255, 0.1); }
+        
         @media (max-width: 768px) {
             .hamburger { display: flex; }
             .nav-links { position: fixed; left: -100%; top: 0; flex-direction: column; background-color: rgba(26, 26, 46, 0.98); width: 100%; height: 100vh; text-align: center; transition: 0.3s; padding-top: 80px; gap: 0; }
             .nav-links.active { left: 0; }
             .nav-links li { margin: 1.5rem 0; }
-
-            .page-header h1 {
-                font-size: 2.5rem;
-            }
-
-            .amenities-grid {
-                grid-template-columns: 1fr;
-            }
+            .page-header h1 { font-size: 2.5rem; }
+            .amenities-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
 <body>
-    <!-- Navigation -->
     <nav>
         <div class="nav-container">
             <a href="index.html" class="logo">ELEVATE<span>Fitness</span></a>
-                        <div class="hamburger" id="hamburger">
+            <div class="hamburger" id="hamburger">
                 <span></span>
                 <span></span>
                 <span></span>
             </div>
-<ul class="nav-links" id="navLinks">
+            <ul class="nav-links" id="navLinks">
                 <li><a href="index.html">Home</a></li>
                 <li><a href="amenities.html" class="active">Amenities</a></li>
                 <li><a href="classes.html">Classes</a></li>
@@ -312,253 +108,133 @@
         </div>
     </nav>
 
-    <!-- Page Header -->
     <div class="page-header">
         <h1>World-Class Amenities</h1>
-        <p>Everything you need for a complete fitness experience under one roof</p>
+        <p>Everything you need to achieve your fitness goals under one roof</p>
     </div>
 
-    <!-- Amenities Section -->
-    <section class="amenities-section">
+    <section class="section">
         <div class="container">
             <div class="amenities-grid">
-                <div class="amenity-card">
-                    <div class="amenity-icon">
-                        <i data-lucide="dumbbell" size="48"></i>
-                    </div>
-                    <h3>Premium Weightlifting</h3>
-                    <p>State-of-the-art strength training equipment featuring the latest technology from top brands.</p>
-                    <ul class="amenity-features">
-                        <li>Free weights up to 150 lbs</li>
-                        <li>Olympic lifting platforms</li>
-                        <li>Power racks and squat cages</li>
-                        <li>Cable machines and Smith machines</li>
-                    </ul>
-                </div>
-
+                <!-- Cardio Equipment -->
                 <div class="amenity-card">
                     <div class="amenity-icon">
                         <i data-lucide="activity" size="48"></i>
                     </div>
                     <h3>Cardio Equipment</h3>
-                    <p>Top-of-the-line cardiovascular machines with entertainment systems and personal viewing screens.</p>
-                    <ul class="amenity-features">
-                        <li>Treadmills with incline control</li>
-                        <li>Elliptical trainers</li>
-                        <li>Stationary bikes and spin bikes</li>
-                        <li>Rowing machines and stair climbers</li>
-                    </ul>
+                    <p>State-of-the-art treadmills, ellipticals, bikes, and rowing machines with entertainment systems to keep you motivated.</p>
                 </div>
 
+                <!-- Weight Training -->
                 <div class="amenity-card">
                     <div class="amenity-icon">
-                        <i data-lucide="zap" size="48"></i>
+                        <i data-lucide="dumbbell" size="48"></i>
                     </div>
-                    <h3>Circuit Training Zone</h3>
-                    <p>Dedicated space for high-intensity circuit training with specialized equipment.</p>
-                    <ul class="amenity-features">
-                        <li>Battle ropes and slam balls</li>
-                        <li>Box jump platforms</li>
-                        <li>TRX suspension systems</li>
-                        <li>Agility ladders and cones</li>
-                    </ul>
+                    <h3>Weight Training</h3>
+                    <p>Complete free weight area, resistance machines, and functional training equipment for all your strength training needs.</p>
                 </div>
 
-                <div class="amenity-card">
-                    <div class="amenity-icon">
-                        <i data-lucide="crosshair" size="48"></i>
-                    </div>
-                    <h3>Functional Fitness</h3>
-                    <p>Versatile training area designed for dynamic movements and athletic performance.</p>
-                    <ul class="amenity-features">
-                        <li>Kettlebells and medicine balls</li>
-                        <li>Resistance bands</li>
-                        <li>Plyometric boxes</li>
-                        <li>Foam rollers and stretching area</li>
-                    </ul>
-                </div>
-
-                <div class="amenity-card">
-                    <div class="amenity-icon">
-                        <i data-lucide="footprints" size="48"></i>
-                    </div>
-                    <h3>Indoor Running Track</h3>
-                    <p>Climate-controlled track perfect for walking, jogging, or running any time of year.</p>
-                    <ul class="amenity-features">
-                        <li>Shock-absorbing surface</li>
-                        <li>Measured distance markers</li>
-                        <li>Elevated viewing of gym floor</li>
-                        <li>Open year-round</li>
-                    </ul>
-                </div>
-
+                <!-- Swimming Pool -->
                 <div class="amenity-card">
                     <div class="amenity-icon">
                         <i data-lucide="waves" size="48"></i>
                     </div>
                     <h3>Swimming Pool</h3>
-                    <p>Pristine pool facilities for lap swimming, water aerobics, and aquatic therapy.</p>
-                    <ul class="amenity-features">
-                        <li>Olympic-size lap lanes</li>
-                        <li>Heated year-round</li>
-                        <li>Shallow and deep ends</li>
-                        <li>Pool equipment available</li>
-                    </ul>
+                    <p>Olympic-sized indoor pool with lap lanes, perfect for swimming workouts or aqua aerobics classes.</p>
                 </div>
 
+                <!-- Hot Tub -->
                 <div class="amenity-card">
                     <div class="amenity-icon">
-                        <i data-lucide="droplets" size="48"></i>
+                        <i data-lucide="droplet" size="48"></i>
                     </div>
-                    <h3>Sauna</h3>
-                    <p>Relax and recover in our premium dry sauna after your workout.</p>
-                    <ul class="amenity-features">
-                        <li>Traditional dry heat</li>
-                        <li>Spacious seating</li>
-                        <li>Detoxification benefits</li>
-                        <li>Muscle recovery aid</li>
-                    </ul>
+                    <h3>Hot Tub & Sauna</h3>
+                    <p>Relax and recover in our luxurious hot tub and sauna after an intense workout session.</p>
                 </div>
 
+                <!-- Basketball Court -->
                 <div class="amenity-card">
                     <div class="amenity-icon">
-                        <i data-lucide="cloud" size="48"></i>
-                    </div>
-                    <h3>Steam Room</h3>
-                    <p>Soothe tired muscles and improve circulation in our relaxing steam room.</p>
-                    <ul class="amenity-features">
-                        <li>Therapeutic steam heat</li>
-                        <li>Respiratory benefits</li>
-                        <li>Skin health improvement</li>
-                        <li>Stress relief</li>
-                    </ul>
-                </div>
-
-                <div class="amenity-card">
-                    <div class="amenity-icon">
-                        <i data-lucide="dribbble" size="48"></i>
+                        <i data-lucide="disc" size="48"></i>
                     </div>
                     <h3>Basketball Court</h3>
-                    <p>Full-size indoor basketball court for pickup games, practice, or organized leagues.</p>
-                    <ul class="amenity-features">
-                        <li>Full court with regulation hoops</li>
-                        <li>High-quality flooring</li>
-                        <li>Basketballs provided</li>
-                        <li>Open play hours</li>
-                    </ul>
+                    <p>Full-size indoor basketball court available for pickup games, leagues, and individual practice.</p>
                 </div>
 
+                <!-- Racquetball Courts -->
                 <div class="amenity-card">
                     <div class="amenity-icon">
-                        <i data-lucide="circle" size="48"></i>
+                        <i data-lucide="target" size="48"></i>
                     </div>
                     <h3>Racquetball Courts</h3>
-                    <p>Multiple racquetball courts available for reservation or open play.</p>
-                    <ul class="amenity-features">
-                        <li>Two regulation courts</li>
-                        <li>Equipment rental available</li>
-                        <li>Court reservation system</li>
-                        <li>Well-maintained surfaces</li>
-                    </ul>
+                    <p>Multiple climate-controlled racquetball courts with equipment rentals available for members.</p>
                 </div>
 
+                <!-- Group Fitness Studio -->
                 <div class="amenity-card">
                     <div class="amenity-icon">
-                        <i data-lucide="stethoscope" size="48"></i>
+                        <i data-lucide="users" size="48"></i>
                     </div>
-                    <h3>Physical Therapy</h3>
-                    <p>Professional physical therapy services to help you recover and prevent injuries.</p>
-                    <ul class="amenity-features">
-                        <li>Licensed therapists</li>
-                        <li>Sports injury treatment</li>
-                        <li>Rehabilitation programs</li>
-                        <li>Insurance accepted</li>
-                    </ul>
+                    <h3>Group Fitness Studio</h3>
+                    <p>Spacious studio with professional sound system, perfect for our variety of group fitness classes.</p>
                 </div>
 
+                <!-- Personal Training -->
                 <div class="amenity-card">
                     <div class="amenity-icon">
-                        <i data-lucide="hand" size="48"></i>
+                        <i data-lucide="user-check" size="48"></i>
                     </div>
-                    <h3>Massage Therapy</h3>
-                    <p>Professional massage services to help your body recover and reduce muscle tension.</p>
-                    <ul class="amenity-features">
-                        <li>Certified massage therapists</li>
-                        <li>Sports massage available</li>
-                        <li>Deep tissue and relaxation</li>
-                        <li>Appointment booking</li>
-                    </ul>
+                    <h3>Personal Training</h3>
+                    <p>Certified personal trainers available to help you reach your goals with customized workout plans.</p>
                 </div>
 
+                <!-- Locker Rooms -->
                 <div class="amenity-card">
                     <div class="amenity-icon">
-                        <i data-lucide="wind" size="48"></i>
+                        <i data-lucide="lock" size="48"></i>
                     </div>
-                    <h3>Aerial Yoga</h3>
-                    <p>Experience the unique benefits of aerial yoga with our specialized equipment and certified instructors.</p>
-                    <ul class="amenity-features">
-                        <li>Suspension hammocks</li>
-                        <li>Beginner-friendly classes</li>
-                        <li>Core strength building</li>
-                        <li>Flexibility enhancement</li>
-                    </ul>
+                    <h3>Locker Rooms</h3>
+                    <p>Clean, spacious locker rooms with showers, lockers, and changing areas. Day lockers always available.</p>
                 </div>
 
+                <!-- Towel Service -->
                 <div class="amenity-card">
                     <div class="amenity-icon">
-                        <i data-lucide="heart" size="48"></i>
+                        <i data-lucide="shirt" size="48"></i>
                     </div>
-                    <h3>SilverSneakers</h3>
-                    <p>Proud participant in the SilverSneakers program and other senior fitness initiatives.</p>
-                    <ul class="amenity-features">
-                        <li>Insurance programs accepted</li>
-                        <li>Senior-friendly equipment</li>
-                        <li>Low-impact options</li>
-                        <li>Social atmosphere</li>
-                    </ul>
+                    <h3>Towel Service</h3>
+                    <p>Complimentary towel service for all members. Never worry about bringing your own towels again.</p>
                 </div>
 
-                <div class="amenity-card">
-                    <div class="amenity-icon">
-                        <i data-lucide="scan" size="48"></i>
-                    </div>
-                    <h3>InBody Scans</h3>
-                    <p>Advanced body composition analysis to track your progress with precision.</p>
-                    <ul class="amenity-features">
-                        <li>Full body composition data</li>
-                        <li>Muscle mass analysis</li>
-                        <li>Body fat percentage</li>
-                        <li>Progress tracking over time</li>
-                    </ul>
-                </div>
-
+                <!-- WiFi -->
                 <div class="amenity-card">
                     <div class="amenity-icon">
                         <i data-lucide="wifi" size="48"></i>
                     </div>
-                    <h3>Free WiFi & Amenities</h3>
-                    <p>Additional conveniences to make your gym experience comfortable and enjoyable.</p>
-                    <ul class="amenity-features">
-                        <li>High-speed WiFi throughout</li>
-                        <li>Clean locker rooms</li>
-                        <li>Showers and changing areas</li>
-                        <li>Water fountains</li>
-                    </ul>
+                    <h3>Free WiFi</h3>
+                    <p>High-speed wireless internet throughout the entire facility to stay connected during your workout.</p>
+                </div>
+
+                <!-- Parking -->
+                <div class="amenity-card">
+                    <div class="amenity-icon">
+                        <i data-lucide="car" size="48"></i>
+                    </div>
+                    <h3>Free Parking</h3>
+                    <p>Ample free parking right outside the facility for easy access to your workout.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- CTA Section -->
-    <section class="cta-section">
+    <div class="highlight-section">
         <div class="container">
-            <h2>Ready to Experience All These Amenities?</h2>
-            <p>Join Elevate Fitness today and get full access to everything we offer</p>
-            <a href="memberships.html" class="btn btn-secondary">View Membership Options</a>
+            <h2>All Amenities Included</h2>
+            <p>Unlike other gyms, we don't have tier systems or hidden fees. Every membership includes full access to all amenities, classes, and facilities. No restrictions, no surprises - just unlimited potential.</p>
+            <a href="memberships.html" class="btn">View Membership Plans</a>
         </div>
-    </section>
+    </div>
 
-    <!-- Footer -->
     <footer>
         <div class="footer-content">
             <div class="footer-logo">ELEVATE<span>Fitness</span></div>
@@ -568,60 +244,41 @@
     </footer>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Hamburger menu functionality
-            const hamburger = document.getElementById('hamburger');
-            const navLinks = document.getElementById('navLinks');
-
-            if (hamburger && navLinks) {
-                hamburger.addEventListener('click', () => {
-                    hamburger.classList.toggle('active');
-                    navLinks.classList.toggle('active');
-                });
-
-                document.querySelectorAll('.nav-links a').forEach(link => {
-                    link.addEventListener('click', () => {
-                        hamburger.classList.remove('active');
-                        navLinks.classList.remove('active');
-                    });
-                });
-
-                document.addEventListener('click', (e) => {
-                    if (!hamburger.contains(e.target) && !navLinks.contains(e.target)) {
-                        hamburger.classList.remove('active');
-                        navLinks.classList.remove('active');
-                    }
-                });
-            }
-            
-            if (typeof lucide !== 'undefined') {
-                lucide.createIcons();
-                        
-            
-    
-        // Shared cart functionality across all pages
-        function loadCart() {
-            const savedCart = localStorage.getItem('elevateCart');
-            return savedCart ? JSON.parse(savedCart) : [];
-        }
-
-        function saveCart(cart) {
-            localStorage.setItem('elevateCart', JSON.stringify(cart));
-        }
-
+        // Cart count sync
         function updateCartCount() {
-            const cart = loadCart();
-            const cartCountElements = document.querySelectorAll('.cart-count, #cartCount');
-            cartCountElements.forEach(el => {
-                if (el) el.textContent = cart.length;
-            });
+            const cart = localStorage.getItem('elevateCart');
+            const count = cart ? JSON.parse(cart).length : 0;
+            document.getElementById('cartCount').textContent = count;
         }
 
-        // Update cart count on page load
-        document.addEventListener('DOMContentLoaded', function() {
-            updateCartCount();
+        // Mobile Menu
+        const hamburger = document.getElementById('hamburger');
+        const navLinks = document.getElementById('navLinks');
+
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            navLinks.classList.toggle('active');
         });
 
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                navLinks.classList.remove('active');
+            });
+        });
+
+        document.addEventListener('click', (e) => {
+            if (!hamburger.contains(e.target) && !navLinks.contains(e.target)) {
+                hamburger.classList.remove('active');
+                navLinks.classList.remove('active');
+            }
+        });
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            lucide.createIcons();
+            updateCartCount();
+        });
     </script>
 </body>
 </html>

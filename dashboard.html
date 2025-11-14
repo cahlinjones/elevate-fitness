@@ -3,8 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Dashboard | Elevate Fitness</title>
-    <meta name="robots" content="noindex, nofollow">
+    <title>Member Dashboard | Elevate Fitness</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
@@ -21,330 +20,157 @@
         body { font-family: 'Open Sans', sans-serif; line-height: 1.6; color: var(--dark); background: var(--light); padding-top: 80px; }
         h1, h2, h3 { font-family: 'Montserrat', sans-serif; font-weight: 700; }
         
+        /* Navigation */
         nav { position: fixed; top: 0; width: 100%; background: rgba(26, 26, 46, 0.98); backdrop-filter: blur(10px); z-index: 1000; padding: 1rem 0; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); }
         .nav-container { max-width: 1400px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; padding: 0 2rem; }
-        .logo { font-size: 1.8rem; font-weight: 800; color: var(--white); text-decoration: none; }
-        .logo span { color: var(--primary); }        
-        /* Hamburger Menu */
-        .hamburger { display: none; flex-direction: column; cursor: pointer; z-index: 1001; }
-        .hamburger span { width: 25px; height: 3px; background: var(--white); margin: 3px 0; transition: 0.3s; border-radius: 3px; }
-        .hamburger.active span:nth-child(1) { transform: rotate(-45deg) translate(-5px, 6px); }
-        .hamburger.active span:nth-child(2) { opacity: 0; }
-        .hamburger.active span:nth-child(3) { transform: rotate(45deg) translate(-5px, -6px); }
+        .logo { font-size: 1.8rem; font-weight: 800; color: var(--white); text-decoration: none; letter-spacing: 1px; }
+        .logo span { color: var(--primary); }
+        .nav-links { display: flex; list-style: none; gap: 2rem; align-items: center; }
+        .nav-links a { color: var(--white); text-decoration: none; font-weight: 600; transition: color 0.3s; }
+        .nav-links a:hover { color: var(--primary); }
         
-        .nav-right { display: flex; align-items: center; gap: 2rem; }
-        .user-email { color: var(--white); font-size: 0.9rem; }
-        .logout-btn { background: var(--primary); color: var(--white); padding: 0.6rem 1.5rem; border-radius: 50px; text-decoration: none; font-weight: 600; transition: all 0.3s; border: none; cursor: pointer; }
-        .logout-btn:hover { background: var(--primary-dark); }
+        .container { max-width: 1200px; margin: 0 auto; padding: 3rem 2rem; }
+        .welcome-section { background: var(--white); padding: 2rem; border-radius: 20px; margin-bottom: 2rem; box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1); }
+        .welcome-section h1 { color: var(--dark); margin-bottom: 0.5rem; }
         
-        .container { max-width: 1200px; margin: 0 auto; padding: 2rem; }
-        .page-header { text-align: center; margin-bottom: 3rem; }
-        .page-header h1 { font-size: 2.5rem; margin-bottom: 0.5rem; }
-        .page-header p { color: var(--gray); font-size: 1.1rem; }
+        .dashboard-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; margin-bottom: 2rem; }
+        .dashboard-card { background: var(--white); padding: 2rem; border-radius: 15px; box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1); }
+        .dashboard-card h2 { color: var(--primary); margin-bottom: 1rem; font-size: 1.5rem; }
         
-        .dashboard-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 2rem; margin-bottom: 3rem; }
+        .subscription-item { padding: 1rem 0; border-bottom: 1px solid var(--light); }
+        .subscription-item:last-child { border-bottom: none; }
+        .subscription-item strong { color: var(--dark); }
         
-        .card { background: var(--white); padding: 2rem; border-radius: 15px; box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08); }
-        .card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; }
-        .card-header h2 { font-size: 1.5rem; color: var(--dark); }
-        .card-icon { width: 50px; height: 50px; background: linear-gradient(135deg, var(--primary), var(--primary-dark)); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--white); }
-        
-        .subscription-item { background: var(--light); padding: 1.5rem; border-radius: 10px; margin-bottom: 1rem; }
-        .subscription-item:last-child { margin-bottom: 0; }
-        .sub-name { font-size: 1.2rem; font-weight: 700; color: var(--dark); margin-bottom: 0.5rem; }
-        .sub-details { color: var(--gray); font-size: 0.95rem; margin-bottom: 0.5rem; }
-        .sub-status { display: inline-block; padding: 0.3rem 1rem; border-radius: 20px; font-size: 0.85rem; font-weight: 600; background: #10b981; color: white; }
-        .sub-price { font-size: 1.5rem; font-weight: 700; color: var(--primary); margin-top: 0.5rem; }
-        
-        .payment-item { padding: 1rem 0; border-bottom: 1px solid var(--light); display: flex; justify-content: space-between; align-items: center; }
-        .payment-item:last-child { border-bottom: none; }
-        .payment-date { color: var(--gray); font-size: 0.9rem; }
-        .payment-amount { font-weight: 700; color: var(--primary); }
-        
-        .btn { padding: 0.8rem 2rem; font-size: 1rem; font-weight: 700; text-decoration: none; border-radius: 50px; transition: all 0.3s; cursor: pointer; border: none; font-family: 'Montserrat', sans-serif; display: inline-block; }
-        .btn-primary { background: var(--primary); color: var(--white); }
-        .btn-primary:hover { background: var(--primary-dark); transform: translateY(-2px); }
-        .btn-secondary { background: var(--secondary); color: var(--white); }
-        .btn-secondary:hover { background: #003d6b; }
-        
-        .empty-state { text-align: center; padding: 3rem 1rem; color: var(--gray); }
-        .empty-icon { font-size: 3rem; margin-bottom: 1rem; opacity: 0.3; }
-        
-        .loading { text-align: center; padding: 3rem; }
-        .spinner { border: 4px solid var(--light); border-top: 4px solid var(--primary); border-radius: 50%; width: 50px; height: 50px; animation: spin 1s linear infinite; margin: 0 auto; }
-        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-        
-        .quick-actions { display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 2rem; }
-        
-        @media (max-width: 768px) {
-            .hamburger { display: flex; }
-            .nav-right { position: fixed; left: -100%; top: 0; flex-direction: column; background-color: rgba(26, 26, 46, 0.98); width: 100%; height: 100vh; text-align: center; transition: 0.3s; padding-top: 80px; gap: 2rem; justify-content: flex-start; }
-            .nav-right.active { left: 0; }
-        }
-        .cart-icon, .cart-icon i, .cart-icon svg { color: var(--white) !important; stroke: var(--white) !important; }
+        .btn { display: inline-block; padding: 0.875rem 2rem; background: var(--primary); color: var(--white); text-decoration: none; border-radius: 50px; font-weight: 700; transition: all 0.3s; border: none; cursor: pointer; font-size: 0.95rem; margin-top: 1rem; }
+        .btn:hover { background: var(--primary-dark); transform: translateY(-3px); }
+        .btn-secondary { background: var(--secondary); }
+        .btn-logout { background: var(--gray); }
     </style>
 </head>
 <body>
     <nav>
         <div class="nav-container">
             <a href="index.html" class="logo">ELEVATE<span>Fitness</span></a>
-            <div class="hamburger" id="hamburger">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
-            <div class="nav-right">
-                <span class="user-email" id="userEmail"></span>
-                <button class="logout-btn" onclick="logout()">Logout</button>
-            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="#" onclick="logout()">Logout</a></li>
+            </ul>
         </div>
     </nav>
 
     <div class="container">
-        <div class="page-header">
-            <h1>My Dashboard</h1>
-            <p>Manage your memberships and view your payment history</p>
+        <div class="welcome-section">
+            <h1>Welcome back, <span id="userName">Member</span>!</h1>
+            <p style="color: var(--gray);">Manage your membership and view your account details</p>
         </div>
-
-        <div id="loadingState" class="loading">
-            <div class="spinner"></div>
-            <p style="margin-top: 1rem; color: var(--gray);">Loading your dashboard...</p>
-        </div>
-
-        <div id="dashboardContent" style="display: none;">
-            <div class="dashboard-grid">
-                <!-- Active Subscriptions -->
-                <div class="card">
-                    <div class="card-header">
-                        <h2>Active Memberships</h2>
-                        <div class="card-icon">
-                            <i data-lucide="award"></i>
-                        </div>
-                    </div>
-                    <div id="subscriptionsContainer"></div>
-                    <div class="quick-actions">
-                        <button class="btn btn-secondary" onclick="manageSubscriptions()">Manage Subscriptions</button>
-                    </div>
+        
+        <div class="dashboard-grid">
+            <div class="dashboard-card">
+                <h2>Active Memberships</h2>
+                <div id="subscriptions">
+                    <p style="color: var(--gray);">Loading...</p>
                 </div>
-
-                <!-- Payment History -->
-                <div class="card">
-                    <div class="card-header">
-                        <h2>Payment History</h2>
-                        <div class="card-icon">
-                            <i data-lucide="credit-card"></i>
-                        </div>
-                    </div>
-                    <div id="paymentsContainer"></div>
+                <button class="btn btn-secondary" onclick="manageSubscription()">Manage Subscription</button>
+            </div>
+            
+            <div class="dashboard-card">
+                <h2>Payment History</h2>
+                <div id="payments">
+                    <p style="color: var(--gray);">Loading...</p>
                 </div>
             </div>
-
-            <div class="card">
-                <h2 style="margin-bottom: 1.5rem;">Quick Actions</h2>
-                <div class="quick-actions">
-                    <a href="memberships.html" class="btn btn-primary">Purchase Additional Membership</a>
-                    <a href="classes.html" class="btn btn-secondary">View Class Schedule</a>
-                    <a href="contact.html" class="btn btn-secondary">Contact Support</a>
-                </div>
-            </div>
+        </div>
+        
+        <div class="dashboard-card">
+            <h2>Quick Links</h2>
+            <a href="classes.html" class="btn">View Class Schedule</a>
+            <a href="amenities.html" class="btn btn-secondary">Browse Amenities</a>
+            <a href="contact.html" class="btn btn-secondary">Contact Us</a>
         </div>
     </div>
-
+    
     <script>
-        document.addEventListener('DOMContentLoaded', async function() {
-            if (typeof lucide !== 'undefined') {
-                lucide.createIcons();
-            }
-
-            // Check if user is logged in
-            const email = localStorage.getItem('elevateEmail');
+        async function loadDashboard() {
+            const email = localStorage.getItem('userEmail');
+            
             if (!email) {
                 window.location.href = 'login.html';
                 return;
             }
-
-            // Display user email
-            document.getElementById('userEmail').textContent = email;
-
-            // Load customer data
-            await loadCustomerData(email);
-        });
-
-        async function loadCustomerData(email) {
+            
+            document.getElementById('userName').textContent = email.split('@')[0];
+            
             try {
-                const response = await fetch('/api/get-customer-info', {
+                const response = await fetch('/.netlify/functions/get-customer-info', {
                     method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
+                    headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ customerEmail: email })
                 });
-
+                
                 const data = await response.json();
-
-                // Hide loading, show content
-                document.getElementById('loadingState').style.display = 'none';
-                document.getElementById('dashboardContent').style.display = 'block';
-
+                
                 // Display subscriptions
-                displaySubscriptions(data.subscriptions || []);
-
-                // Display payments
-                displayPayments(data.payments || []);
-
-                if (typeof lucide !== 'undefined') {
-                    lucide.createIcons();
+                const subsDiv = document.getElementById('subscriptions');
+                if (data.subscriptions && data.subscriptions.length > 0) {
+                    subsDiv.innerHTML = data.subscriptions.map(sub => `
+                        <div class="subscription-item">
+                            <strong>${sub.planName}</strong><br>
+                            <span style="color: var(--gray);">$${sub.amount}/month</span><br>
+                            <span style="color: var(--gray); font-size: 0.9rem;">Next billing: ${sub.nextBillingDate}</span>
+                        </div>
+                    `).join('');
+                } else {
+                    subsDiv.innerHTML = '<p style="color: var(--gray);">No active subscriptions</p>';
                 }
-
+                
+                // Display payments
+                const paymentsDiv = document.getElementById('payments');
+                if (data.payments && data.payments.length > 0) {
+                    paymentsDiv.innerHTML = data.payments.slice(0, 5).map(payment => `
+                        <div class="subscription-item">
+                            <strong>$${payment.amount}</strong><br>
+                            <span style="color: var(--gray); font-size: 0.9rem;">${payment.date} - ${payment.description}</span>
+                        </div>
+                    `).join('');
+                } else {
+                    paymentsDiv.innerHTML = '<p style="color: var(--gray);">No payment history</p>';
+                }
+                
             } catch (error) {
-                console.error('Error loading customer data:', error);
-                document.getElementById('loadingState').innerHTML = `
-                    <div class="empty-state">
-                        <div class="empty-icon">⚠️</div>
-                        <p>Unable to load your dashboard. Please try again or contact support at (208) 233-8035.</p>
-                        <button class="btn btn-primary" style="margin-top: 1rem;" onclick="location.reload()">Retry</button>
-                    </div>
-                `;
+                console.error('Dashboard error:', error);
             }
         }
-
-        function displaySubscriptions(subscriptions) {
-            const container = document.getElementById('subscriptionsContainer');
-
-            if (subscriptions.length === 0) {
-                container.innerHTML = `
-                    <div class="empty-state">
-                        <div class="empty-icon">📋</div>
-                        <p>No active memberships found.</p>
-                        <a href="memberships.html" class="btn btn-primary" style="margin-top: 1rem;">View Membership Options</a>
-                    </div>
-                `;
-                return;
-            }
-
-            container.innerHTML = subscriptions.map(sub => `
-                <div class="subscription-item">
-                    <div class="sub-name">${sub.planName}</div>
-                    <div class="sub-details">
-                        <span class="sub-status">${sub.status.toUpperCase()}</span>
-                    </div>
-                    <div class="sub-details">
-                        Billing: ${sub.interval}ly
-                    </div>
-                    <div class="sub-details">
-                        Next Billing Date: ${sub.nextBillingDate}
-                    </div>
-                    <div class="sub-price">$${sub.amount.toFixed(2)}/${sub.interval}</div>
-                    ${sub.cancelAtPeriodEnd ? '<p style="color: #c00; margin-top: 0.5rem; font-size: 0.9rem;">⚠️ Cancels on ' + sub.currentPeriodEnd + '</p>' : ''}
-                </div>
-            `).join('');
-        }
-
-        function displayPayments(payments) {
-            const container = document.getElementById('paymentsContainer');
-
-            if (payments.length === 0) {
-                container.innerHTML = `
-                    <div class="empty-state">
-                        <div class="empty-icon">💳</div>
-                        <p>No payment history found.</p>
-                    </div>
-                `;
-                return;
-            }
-
-            container.innerHTML = payments.slice(0, 5).map(payment => `
-                <div class="payment-item">
-                    <div>
-                        <div style="font-weight: 600; color: var(--dark);">${payment.description}</div>
-                        <div class="payment-date">${payment.date}</div>
-                    </div>
-                    <div class="payment-amount">$${payment.amount.toFixed(2)}</div>
-                </div>
-            `).join('');
-
-            if (payments.length > 5) {
-                container.innerHTML += `
-                    <div style="text-align: center; margin-top: 1rem; color: var(--gray);">
-                        Showing 5 of ${payments.length} payments
-                    </div>
-                `;
-            }
-        }
-
-        async function manageSubscriptions() {
-            const email = localStorage.getItem('elevateEmail');
+        
+        async function manageSubscription() {
+            const email = localStorage.getItem('userEmail');
             
             try {
-                const response = await fetch('/api/create-portal-session', {
+                const response = await fetch('/.netlify/functions/create-portal-session', {
                     method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
+                    headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ customerEmail: email })
                 });
-
+                
                 const data = await response.json();
-
                 if (data.url) {
-                    // Redirect to Stripe Customer Portal
                     window.location.href = data.url;
-                } else {
-                    alert('Unable to open subscription management. Please contact support.');
                 }
-
             } catch (error) {
-                console.error('Error opening portal:', error);
-                alert('Unable to open subscription management. Please contact support at (208) 233-8035.');
+                console.error('Portal error:', error);
+                alert('Unable to open subscription management. Please contact support.');
             }
         }
-
+        
         function logout() {
-            localStorage.removeItem('elevateEmail');
-            window.location.href = 'login.html';
+            localStorage.removeItem('userEmail');
+            localStorage.removeItem('customerId');
+            window.location.href = 'index.html';
         }
-    
-        // Shared cart functionality across all pages
-        function loadCart() {
-            const savedCart = localStorage.getItem('elevateCart');
-            return savedCart ? JSON.parse(savedCart) : [];
-        }
-
-        function saveCart(cart) {
-            localStorage.setItem('elevateCart', JSON.stringify(cart));
-        }
-
-        function updateCartCount() {
-            const cart = loadCart();
-            const cartCountElements = document.querySelectorAll('.cart-count, #cartCount');
-            cartCountElements.forEach(el => {
-                if (el) el.textContent = cart.length;
-            });
-        }
-
-        // Update cart count on page load
-        document.addEventListener('DOMContentLoaded', function() {            
-            // Hamburger menu functionality
-            const hamburger = document.getElementById('hamburger');
-            const navRight = document.querySelector('.nav-right');
-
-            if (hamburger && navRight) {
-                hamburger.addEventListener('click', () => {
-                    hamburger.classList.toggle('active');
-                    navRight.classList.toggle('active');
-                });
-
-                document.addEventListener('click', (e) => {
-                    if (!hamburger.contains(e.target) && !navRight.contains(e.target)) {
-                        hamburger.classList.remove('active');
-                        navRight.classList.remove('active');
-                    }
-                });
-            }
-            
-            updateCartCount();
+        
+        document.addEventListener('DOMContentLoaded', () => {
+            lucide.createIcons();
+            loadDashboard();
         });
-
     </script>
 </body>
 </html>
